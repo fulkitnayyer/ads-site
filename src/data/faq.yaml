@@ -1,0 +1,114 @@
+# Questions and answers for the FAQ page, three of which also appear on Home.
+# Answers are plain text. A blank line starts a new paragraph, and [link text](/path/) makes a link.
+# Prices are tokens from src/config/site.ts: {price}, {plusFrom}, {offer}, {plus}.
+
+- id: contract
+  question: Is there a contract?
+  # TODO(owner): confirm when cancellation takes effect.
+  answer: >-
+    No. {offer} is month to month, with no setup fee and no minimum term. To cancel, send an
+    email. You won’t be billed again, and the work runs to the end of the month you’ve paid for.
+
+- id: ad-spend
+  question: Is my ad spend included in the {price}?
+  answer: >-
+    No. The {price} a month pays for the management. Your ad spend goes from you to Google, on
+    your own payment method, so you always see exactly what you spend.
+
+- id: ownership
+  question: Who owns the Google Ads account?
+  answer: >-
+    You do. The account stays in your name, with your billing. We work through a manager link,
+    which you can remove from your Google Ads account in one click. If you leave, your
+    campaigns, history and data stay where they are.
+
+- id: results
+  question: What results can I expect?
+  answer: >-
+    Nobody can honestly promise a number of leads from Google Ads, so we don’t. What we promise is
+    the work: a clean account, a check every week, an optimization pass every month and a
+    plain-English report on what was spent, what it brought in and what changed.
+
+- id: guarantee
+  question: Is there a guarantee?
+  answer: >-
+    Not on results. Leads depend on things outside the account too, like your website, your prices
+    and how fast the phone gets answered.
+
+
+    There is a first-month refund. If you don’t think the first month was worth it, tell us and
+    you get it back.
+
+- id: refund
+  question: How does the first-month refund work?
+  # TODO(owner): confirm the refund window and how the refund is paid.
+  answer: >-
+    Email us before your second month is billed and say the first month wasn’t worth it. We refund
+    the first month’s fee. No forms, and no need to explain why.
+
+- id: cancel
+  question: How do I cancel?
+  answer: >-
+    Send an email. Then remove our manager link from your Google Ads account, which takes one click.
+    There’s no fee to leave, and the account is exactly as you left it, with every change recorded
+    in its history.
+
+- id: who
+  question: Who does the work?
+  answer: >-
+    One specialist, with 3 years of hands-on Google Ads work for small businesses in the US and
+    Canada. There are no account managers and no hand-offs. The person who checks your account
+    is the person who answers your email.
+
+- id: where
+  question: Where are you based?
+  # TODO(owner): answer plainly. Say where the work is done from and the hours kept for US clients.
+  # Don't imply an office that doesn't exist.
+  answer: >-
+    TODO(owner): where the work is done from, and the hours kept for US clients.
+
+- id: agency
+  question: I already have an agency. Can I switch?
+  answer: >-
+    Yes. Book the free review first and we’ll tell you what we see. If you switch, you remove the
+    agency’s access and accept our manager link. Your campaigns and their history stay in your
+    account.
+
+
+    If the account was set up in your agency’s name, ask them to transfer it to you first. We can
+    tell you what to ask for.
+
+- id: tracking
+  question: What if my call and form tracking isn’t working?
+  # TODO(owner): confirm whether fixing basic tracking is part of month 1 or the paid add-on.
+  answer: >-
+    Month 1 includes a check that your call and form tracking fires. If it doesn’t, we show you
+    what’s missing and fix the basics in the account. A full setup with Google Tag Manager and GA4
+    is a one-time add-on, and call-tracking platforms aren’t included.
+
+- id: access
+  question: What access do you need?
+  answer: >-
+    For the monthly service, a manager link. We send the request and you accept it in your Google
+    Ads account. For a written review, read-only access is enough. Either one can be removed in one
+    click.
+
+- id: report
+  question: What’s in the monthly report?
+  answer: >-
+    One page in plain English. What you spent, the calls and forms it brought in, what we changed
+    and why, and what’s next.
+
+- id: small-budget
+  question: I spend less than $500 a month. Is this worth it?
+  answer: >-
+    Maybe not. On a small budget, {price} a month is a large share of what you spend. The free
+    review will give you a straight answer, even if the answer is no.
+
+- id: data
+  question: What do you do with my data?
+  # TODO(owner): confirm against the privacy policy once it's written.
+  answer: >-
+    We use access to your account only to manage your ads. We don’t sell or share your data, and
+    we don’t copy it out of your account beyond what the monthly report needs. When you remove the
+    manager link, our access ends. The [privacy policy](/privacy/) has the details.

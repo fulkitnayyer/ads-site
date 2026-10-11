@@ -1,0 +1,90 @@
+/*
+ * Design tokens for the "service log" identity. CLAUDE.md says where each one may be used.
+ * Contrast ratios are WCAG 2.2 against the background named.
+ */
+:root {
+  /* Colour */
+  --paper: #f1f3ee; /* page background */
+  --ink: #1e3b32; /* ledger green: headings, body text, button borders, focus ring. 10.9:1 on paper */
+  --moss: #5a6b62; /* secondary text, log column labels. 5.1:1 on paper, 5.6:1 on white. Not on manila (4.4:1) */
+  --rule: #c8d2ca; /* lines only, never text */
+  --signal: #f7893e; /* booking button fill only. Ink text on it 5.0:1. Never text on paper */
+  --stamp: #b5480f; /* "Checked" stamp, active nav underline, error text. 4.8:1 on paper. Not on manila */
+  --manila: #f3e3b5; /* paper-tag notes. Text on it stays ink (9.5:1) */
+  --white: #ffffff; /* service log and form surfaces */
+
+  /* Type. Phone sizes here; desktop sizes in the media query below. */
+  --font: 'Archivo', 'Archivo fallback', system-ui, sans-serif;
+
+  --display-size: 2.5rem; /* 40/44 */
+  --display-leading: 2.75rem;
+  --h1-size: 2.125rem; /* 34/38 */
+  --h1-leading: 2.375rem;
+  --h2-size: 1.75rem; /* 28/32 */
+  --h2-leading: 2rem;
+  --h3-size: 1.3125rem; /* 21/27 */
+  --h3-leading: 1.6875rem;
+  --lead-size: 1.1875rem; /* 19/30 */
+  --lead-leading: 1.875rem;
+  --body-size: 1.0625rem; /* 17/27 */
+  --body-leading: 1.6875rem;
+  --small-size: 0.9375rem; /* 15/22 */
+  --small-leading: 1.375rem;
+  --price-size: 3.25rem; /* 52/52 */
+  --price-leading: 3.25rem;
+  --button-size: 1.0625rem; /* 17px at every size */
+
+  /* Width axis (font-stretch) per style */
+  --wide-display: 118%;
+  --wide-h1: 115%;
+  --wide-h2: 112%;
+
+  /* Spacing scale: 4, 8, 12, 16, 24, 32, 48, 64, 96, 128 */
+  --space-1: 0.25rem;
+  --space-2: 0.5rem;
+  --space-3: 0.75rem;
+  --space-4: 1rem;
+  --space-5: 1.5rem;
+  --space-6: 2rem;
+  --space-7: 3rem;
+  --space-8: 4rem;
+  --space-9: 6rem;
+  --space-10: 8rem;
+
+  /* Layout */
+  --page-max: 70rem; /* 1120px */
+  --gutter: 1.5rem; /* 24px between columns */
+  --margin: 1rem; /* 16px side margins on phones */
+  --measure: 68ch; /* longest line of prose */
+  --section-half: var(--space-6); /* sections sit 64px apart on phones, with the rule halfway */
+
+  /* Lines and corners. No shadows, no pills. */
+  --hairline: 1px;
+  --ink-line: 1.5px;
+  --radius: 4px; /* buttons, inputs */
+  --radius-log: 6px; /* service log surface */
+  --tap: 2.75rem; /* 44px minimum tap target */
+  --button-height: 3rem; /* 48px */
+}
+
+@media (min-width: 48rem) {
+  :root {
+    --display-size: 3.4375rem; /* 55/60 */
+    --display-leading: 3.75rem;
+    --h1-size: 2.75rem; /* 44/48 */
+    --h1-leading: 3rem;
+    --h2-size: 2.1875rem; /* 35/40 */
+    --h2-leading: 2.5rem;
+    --h3-size: 1.375rem; /* 22/28 */
+    --h3-leading: 1.75rem;
+    --lead-size: 1.25rem; /* 20/32 */
+    --lead-leading: 2rem;
+    --body-size: 1.125rem; /* 18/29 */
+    --body-leading: 1.8125rem;
+    --price-size: 4rem; /* 64/64 */
+    --price-leading: 4rem;
+
+    --margin: 2rem;
+    --section-half: var(--space-7); /* 96px apart on larger screens */
+  }
+}

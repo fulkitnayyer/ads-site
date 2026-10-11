@@ -1,0 +1,78 @@
+---
+// The price, set large: the one bold element on Pricing. Terms go in the default slot.
+import { site } from '../config/site';
+import { formatMoney } from '../lib/text';
+import BookingButton from './BookingButton.astro';
+import SecondaryButton from './SecondaryButton.astro';
+
+interface Props {
+  /** Page id for the booking link's utm_content. */
+  page: string;
+}
+
+const { page } = Astro.props;
+---
+
+<div class="price-block">
+  <p class="price-name">{site.offer.name}</p>
+  <p class="price-line">
+    <span class="price num">{formatMoney(site.offer.price)}</span>
+    <span class="price-unit">a month</span>
+  </p>
+  <div class="price-terms">
+    <slot />
+  </div>
+  <div class="actions">
+    <BookingButton content={page} />
+    <SecondaryButton />
+  </div>
+</div>
+
+<style>
+  .price-block {
+    background: var(--white);
+    border-top: var(--ink-line) solid var(--ink);
+    border-radius: var(--radius-log);
+    padding: var(--space-5) var(--space-4) var(--space-6);
+  }
+
+  @media (min-width: 48rem) {
+    .price-block {
+      padding: var(--space-6) var(--space-6) var(--space-7);
+    }
+  }
+
+  .price-name {
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-weight: 700;
+  }
+
+  .price-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-3);
+    margin-top: var(--space-4);
+  }
+
+  .price {
+    font-size: var(--price-size);
+    line-height: var(--price-leading);
+    font-weight: 800;
+    font-stretch: var(--wide-display);
+    letter-spacing: -0.01em;
+  }
+
+  .price-unit {
+    font-size: var(--lead-size);
+    line-height: var(--lead-leading);
+    color: var(--moss);
+  }
+
+  .price-terms {
+    margin-block: var(--space-5) var(--space-6);
+    padding-top: var(--space-4);
+    border-top: var(--hairline) solid var(--rule);
+  }
+</style>

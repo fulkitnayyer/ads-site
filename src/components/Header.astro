@@ -1,0 +1,195 @@
+---
+// Wordmark, the four main links and the booking button. Below 1024px it all folds into one
+// "Menu" button built on <details>, so it works without JavaScript.
+import { site } from '../config/site';
+import BookingButton from './BookingButton.astro';
+
+interface Props {
+  /** utm_content for the booking button: the page id, or the business slug on prospect pages. */
+  bookingContent: string;
+  bookingSource?: 'site' | 'outreach';
+  bookingHref?: string;
+}
+
+const { bookingContent, bookingSource = 'site', bookingHref } = Astro.props;
+
+const links = [
+  { href: '/how-it-works/', label: 'How it works' },
+  { href: '/pricing/', label: 'Pricing' },
+  { href: '/free-review/', label: 'Free review' },
+  { href: '/faq/', label: 'FAQ' },
+];
+const path = Astro.url.pathname;
+const booking = { content: bookingContent, source: bookingSource, href: bookingHref };
+---
+
+<header class="site-header">
+  <div class="wrap bar">
+    <a class="wordmark" href="/" aria-current={path === '/' ? 'page' : undefined}>{site.name}</a>
+
+    <nav class="nav-wide" aria-label="Main">
+      <ul role="list">
+        {
+          links.map(({ href, label }) => (
+            <li>
+              <a href={href} aria-current={path === href ? 'page' : undefined}>
+                {label}
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </nav>
+    <div class="bar-booking">
+      <BookingButton {...booking} />
+    </div>
+
+    <details class="nav-narrow">
+      <summary class="btn btn-secondary menu-button">
+        <span class="when-closed">Menu</span>
+        <span class="when-open">Close</span>
+      </summary>
+      <div class="menu-panel">
+        <nav aria-label="Main">
+          <ul role="list">
+            {
+              links.map(({ href, label }) => (
+                <li>
+                  <a href={href} aria-current={path === href ? 'page' : undefined}>
+                    {label}
+                  </a>
+                </li>
+              ))
+            }
+          </ul>
+        </nav>
+        <div class="menu-booking">
+          <BookingButton {...booking} />
+        </div>
+      </div>
+    </details>
+  </div>
+</header>
+
+<style>
+  .site-header {
+    position: relative;
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .bar {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: 4.5rem;
+  }
+
+  .wordmark {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-size: 1.25rem;
+    line-height: 1.5rem;
+    font-weight: 800;
+    font-stretch: var(--wide-display);
+    text-decoration: none;
+  }
+
+  .nav-wide ul,
+  .menu-panel ul {
+    list-style: none;
+    padding: 0;
+  }
+
+  .nav-wide,
+  .bar-booking {
+    display: none;
+  }
+
+  .nav-wide ul {
+    display: flex;
+    gap: var(--space-5);
+  }
+
+  .nav-wide a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+    font-weight: 500;
+    text-decoration: none;
+    text-underline-offset: 6px;
+  }
+
+  .nav-wide a:hover {
+    text-decoration-line: underline;
+    text-decoration-thickness: 1px;
+  }
+
+  /* Current page: a stamp-coloured underline */
+  .nav-wide a[aria-current='page'],
+  .menu-panel a[aria-current='page'] {
+    text-decoration-line: underline;
+    text-decoration-color: var(--stamp);
+    text-decoration-thickness: 2px;
+    text-underline-offset: 6px;
+  }
+
+  .menu-button {
+    list-style: none;
+    min-width: 5.5rem;
+  }
+
+  .menu-button::-webkit-details-marker {
+    display: none;
+  }
+
+  .nav-narrow[open] .when-closed,
+  .nav-narrow:not([open]) .when-open {
+    display: none;
+  }
+
+  .menu-panel {
+    position: absolute;
+    z-index: 10;
+    top: 100%;
+    left: 0;
+    right: 0;
+    padding: var(--space-2) var(--margin) var(--space-5);
+    background: var(--paper);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .menu-panel li + li {
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .menu-panel a:not(.btn) {
+    display: flex;
+    align-items: center;
+    min-height: 3rem;
+    font-size: var(--lead-size);
+    font-weight: 600;
+    text-decoration: none;
+  }
+
+  .menu-booking {
+    display: grid;
+    margin-top: var(--space-4);
+  }
+
+  @media (min-width: 64rem) {
+    .nav-wide {
+      display: block;
+      margin-left: auto;
+    }
+
+    .bar-booking {
+      display: block;
+    }
+
+    .nav-narrow {
+      display: none;
+    }
+  }
+</style>

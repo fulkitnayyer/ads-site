@@ -1,0 +1,48 @@
+---
+// Prospect pages at /<slug>/: noindex, never linked, not in the sitemap. Booking links carry
+// the slug. If site.visitLogger.url is set, opens are logged (public/visit-logger.js) and the
+// footer says so.
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import PaperTag from '../components/PaperTag.astro';
+import { site } from '../config/site';
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  slug: string;
+  /** The row's own booking link (cta_link), if it has one. */
+  bookingHref?: string;
+  /** status=sample: a made-up page, labelled as such. */
+  sample?: boolean;
+}
+
+const { title, description, slug, bookingHref, sample = false } = Astro.props;
+const visitLogger = site.visitLogger.url;
+---
+
+<Base title={title} description={description} noindex>
+  {
+    sample && (
+      <aside class="sample-bar" aria-label="Sample page">
+        <p class="wrap small">
+          <PaperTag kind="label">Sample</PaperTag> The business and the notes on this page are made up.
+        </p>
+      </aside>
+    )
+  }
+  <Header bookingContent={slug} bookingSource="outreach" bookingHref={bookingHref} />
+  <main id="main" class="wrap" tabindex="-1">
+    <slot />
+  </main>
+  <Footer visitLogNotice={Boolean(visitLogger)} />
+  {visitLogger && <script is:inline defer src="/visit-logger.js" data-endpoint={visitLogger} data-slug={slug} />}
+</Base>
+
+<style>
+  .sample-bar {
+    padding-block: var(--space-2);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+</style>

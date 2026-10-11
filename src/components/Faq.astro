@@ -1,0 +1,84 @@
+---
+// Questions and answers as native disclosure widgets: no script, keyboard and screen-reader
+// support built in. Answers come from src/data/faq.yaml.
+import { inlineHtml, paragraphs } from '../lib/text';
+
+interface Props {
+  items: { id: string; data: { question: string; answer: string } }[];
+}
+
+const { items } = Astro.props;
+---
+
+<div class="faq">
+  {
+    items.map(({ id, data }) => (
+      <details class="faq-item" id={`q-${id}`}>
+        <summary class="faq-q">
+          <span>{data.question}</span>
+        </summary>
+        <div class="faq-a flow">
+          {paragraphs(data.answer).map((text) => (
+            <p set:html={inlineHtml(text)} />
+          ))}
+        </div>
+      </details>
+    ))
+  }
+</div>
+
+<style>
+  .faq {
+    border-bottom: var(--hairline) solid var(--rule);
+    max-width: 52rem;
+  }
+
+  .faq-item {
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .faq-q {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    gap: var(--space-5);
+    min-height: var(--tap);
+    padding-block: var(--space-4);
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-weight: 700;
+    cursor: pointer;
+    list-style: none;
+  }
+
+  .faq-q::-webkit-details-marker {
+    display: none;
+  }
+
+  /* +/− marker. The empty alt text keeps it out of the accessibility tree;
+     the open/closed state is already announced by <details>. */
+  .faq-q::after {
+    content: '+';
+    content: '+' / '';
+    flex: none;
+    width: 1.5rem;
+    font-weight: 400;
+    text-align: center;
+  }
+
+  .faq-item[open] > .faq-q::after {
+    content: '−';
+    content: '−' / '';
+  }
+
+  .faq-q:hover > span {
+    text-decoration: underline;
+    text-decoration-thickness: 1px;
+    text-underline-offset: 3px;
+  }
+
+  .faq-a {
+    padding-bottom: var(--space-5);
+    padding-right: var(--space-7);
+  }
+</style>

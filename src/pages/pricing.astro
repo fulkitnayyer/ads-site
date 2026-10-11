@@ -1,0 +1,165 @@
+---
+import { getEntry } from 'astro:content';
+import Closing from '../components/Closing.astro';
+import PaperTag from '../components/PaperTag.astro';
+import PriceBlock from '../components/PriceBlock.astro';
+import ScopeList from '../components/ScopeList.astro';
+import Section from '../components/Section.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+import { serviceSchema } from '../lib/schema';
+import { formatMoney } from '../lib/text';
+
+const offer = (await getEntry('offer', 'offer'))!.data;
+const price = formatMoney(site.offer.price);
+---
+
+<Page
+  title={`Pricing: ${price} a month, month to month`}
+  description={`${site.offer.name} costs ${price} a month for one Google Ads account with up to 2 Search campaigns. What's included, what isn't, add-ons and the promises that come with it.`}
+  page="pricing"
+  structuredData={[serviceSchema()]}
+>
+  <section class="section price-intro" aria-labelledby="pricing-title">
+    <div class="grid">
+      <div class="span-5 flow">
+        <h1 id="pricing-title">What {site.offer.name} costs</h1>
+        <p class="lead">One monthly price for one Google Ads account, with the scope written down below.</p>
+      </div>
+      <div class="span-7">
+        <PriceBlock page="pricing">
+          <ul class="terms" role="list">
+            <li>Month to month. No contract and no setup fee.</li>
+            <li>Your ad spend is separate. You pay Google directly.</li>
+          </ul>
+        </PriceBlock>
+      </div>
+    </div>
+  </section>
+
+  <Section id="scope" title="What’s included, and what isn’t">
+    <ScopeList included={offer.included} excluded={offer.not_included} excludedId="not-included" />
+  </Section>
+
+  <Section id="limits" title={`Which accounts ${price} covers`}>
+    <div class="grid">
+      <div class="span-6">
+        <ScopeList included={offer.limits} />
+      </div>
+      <div class="span-6">
+        <PaperTag title={`Bigger account? ${site.offer.plusName}, from ${formatMoney(site.offer.plusFrom)}`}>
+          <p>{offer.plus}</p>
+        </PaperTag>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="add-ons" title="One-time add-ons" intro="Optional jobs outside the monthly scope, each priced up front.">
+    <ul class="addons" role="list">
+      {
+        offer.addons.map((addon) => (
+          <li class="addon">
+            <h3 class="addon-name">{addon.name}</h3>
+            <p class="addon-price num">
+              {addon.price === null ? 'TODO(owner): price' : `${formatMoney(addon.price)}, one time`}
+            </p>
+            <p class="addon-detail">{addon.detail}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Section id="promises" title="Three promises">
+    <ul class="promises" role="list">
+      {
+        offer.promises.map((promise) => (
+          <li class="promise">
+            <h3>{promise.title}</h3>
+            <p>{promise.detail}</p>
+          </li>
+        ))
+      }
+    </ul>
+  </Section>
+
+  <Closing page="pricing" />
+</Page>
+
+<style>
+  .price-intro {
+    padding-top: var(--space-7);
+  }
+
+  @media (min-width: 48rem) {
+    .price-intro {
+      padding-top: var(--space-8);
+    }
+  }
+
+  .terms {
+    list-style: none;
+    padding: 0;
+  }
+
+  .terms li + li {
+    margin-top: var(--space-2);
+  }
+
+  .addons {
+    list-style: none;
+    padding: 0;
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .addon {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    gap: var(--space-1) var(--gutter);
+    padding-block: var(--space-4);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .addon-price {
+    font-weight: 600;
+  }
+
+  @media (min-width: 48rem) {
+    .addon {
+      grid-template-columns: minmax(0, 5fr) minmax(0, 4fr) minmax(0, 3fr);
+      align-items: baseline;
+    }
+
+    .addon-price {
+      grid-column: 3;
+      grid-row: 1;
+      text-align: right;
+    }
+
+    .addon-detail {
+      grid-column: 2;
+      grid-row: 1;
+    }
+  }
+
+  .promises {
+    display: grid;
+    gap: var(--space-6) var(--gutter);
+    list-style: none;
+    padding: 0;
+  }
+
+  @media (min-width: 48rem) {
+    .promises {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+  }
+
+  .promise {
+    display: grid;
+    align-content: start;
+    gap: var(--space-2);
+    padding-top: var(--space-4);
+    border-top: var(--ink-line) solid var(--ink);
+  }
+</style>

@@ -1,0 +1,47 @@
+# Response headers for Cloudflare Workers static assets.
+# Limits: 100 rules, 2,000 characters per line.
+
+# Every page. The CSP allows only this site, Cal.com, Tally, Cloudflare Web Analytics and the
+# visit logger (an Apps Script web app on script.google.com, which redirects to
+# script.googleusercontent.com). Inline styles are allowed because Astro inlines the CSS.
+/*
+  Content-Security-Policy: default-src 'self'; script-src 'self' https://static.cloudflareinsights.com https://tally.so https://app.cal.com; style-src 'self' 'unsafe-inline'; img-src 'self' data:; font-src 'self'; connect-src 'self' https://cloudflareinsights.com https://tally.so https://app.cal.com https://api.cal.com https://script.google.com https://script.googleusercontent.com; frame-src https://tally.so https://cal.com https://app.cal.com; form-action 'self'; base-uri 'self'; object-src 'none'; frame-ancestors 'none'; upgrade-insecure-requests
+  Strict-Transport-Security: max-age=31536000
+  X-Content-Type-Options: nosniff
+  X-Frame-Options: DENY
+  Referrer-Policy: strict-origin-when-cross-origin
+  Permissions-Policy: camera=(), microphone=(), geolocation=(), payment=(), usb=(), browsing-topics=()
+  Cross-Origin-Opener-Policy: same-origin
+
+# Prospect pages live at /<business-slug>/, so every one-segment path is noindex by default...
+/:slug/
+  X-Robots-Tag: noindex, nofollow
+
+# ...except the site's own pages, which detach it. /thanks/ is left out on purpose: it stays noindex.
+# A new top-level page needs a line here; scripts/check-content.mjs fails the build if one is missing.
+/how-it-works/
+  ! X-Robots-Tag
+/pricing/
+  ! X-Robots-Tag
+/free-review/
+  ! X-Robots-Tag
+/about/
+  ! X-Robots-Tag
+/faq/
+  ! X-Robots-Tag
+/contact/
+  ! X-Robots-Tag
+/privacy/
+  ! X-Robots-Tag
+/terms/
+  ! X-Robots-Tag
+/service-terms/
+  ! X-Robots-Tag
+
+# The font file keeps its name between versions, so cache it for 30 days, not forever.
+/fonts/*
+  Cache-Control: public, max-age=2592000
+
+# Hashed build output never changes under the same name.
+/_astro/*
+  Cache-Control: public, max-age=31536000, immutable

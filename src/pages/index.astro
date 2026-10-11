@@ -1,0 +1,211 @@
+---
+import { getCollection, getEntry } from 'astro:content';
+import BookingButton from '../components/BookingButton.astro';
+import Closing from '../components/Closing.astro';
+import Faq from '../components/Faq.astro';
+import PaperTag from '../components/PaperTag.astro';
+import ScopeList from '../components/ScopeList.astro';
+import SecondaryButton from '../components/SecondaryButton.astro';
+import Section from '../components/Section.astro';
+import ServiceLog from '../components/ServiceLog.astro';
+import Steps from '../components/Steps.astro';
+import TextLink from '../components/TextLink.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+import { organizationSchema, serviceSchema } from '../lib/schema';
+import { formatMoney } from '../lib/text';
+
+const offer = (await getEntry('offer', 'offer'))!.data;
+const price = formatMoney(site.offer.price);
+
+// Three answers people need before booking. The full list is on /faq/.
+const faqIds = ['contract', 'ad-spend', 'ownership'];
+const faq = (await getCollection('faq', ({ id }) => faqIds.includes(id))).sort(
+  (a, b) => faqIds.indexOf(a.id) - faqIds.indexOf(b.id),
+);
+
+// An example month. No numbers that could read as a client's results.
+const exampleMonth = [
+  {
+    date: '2026-03-02',
+    checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
+    changed: 'Nothing needed changing.',
+    stamp: true,
+  },
+  {
+    date: '2026-03-09',
+    checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
+    changed: 'One ad was disapproved because its link was broken. Fixed the link and resubmitted the ad.',
+  },
+  {
+    date: '2026-03-11',
+    checked: { title: 'Monthly optimization pass', text: 'Search terms, keywords, ads, bids and budget.' },
+    changed:
+      'Added negative keywords for job-seeker and DIY searches. Paused keywords that got clicks but no calls. Started testing a headline about same-day service.',
+  },
+  {
+    date: '2026-03-16',
+    checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
+    changed: 'Form tracking stopped after a website update. Reconnected the tag and tested a form.',
+  },
+  {
+    date: '2026-03-18',
+    checked: { title: 'Change request', text: 'Add Saturday hours to the ads.' },
+    changed: 'Updated the ad schedule and the hours on the call button. Done the next business day.',
+  },
+  {
+    date: '2026-03-31',
+    checked: { title: 'Month in review', text: 'What was spent, the calls and forms it brought in, what changed.' },
+    changed: 'Sent the one-page report, in plain English, with the plan for next month.',
+    stamp: true,
+  },
+];
+
+const steps = [
+  {
+    title: 'Book a 15-minute review',
+    text: `We look at your account together, and you get a straight answer on whether ${site.offer.name} fits. Prefer it in writing? Give read-only access and get written findings instead.`,
+  },
+  {
+    title: 'Accept a manager link',
+    text: 'If you go ahead, you accept our manager link in your Google Ads account. The account stays yours, and you can remove the link in one click.',
+  },
+  {
+    title: 'Clean-up, then the routine',
+    text: 'Month 1 starts with search terms, negative keywords, ads and tracking. After that: a check every week, a pass every month and a report.',
+  },
+];
+---
+
+<Page
+  title={`Google Ads management for ${price} a month`}
+  description={`${site.offer.name}: a weekly check, a monthly optimization pass and a one-page report for small-business Google Ads. ${price} a month, no contract, and you keep your account.`}
+  page="home"
+  structuredData={[organizationSchema(), serviceSchema()]}
+>
+  <section class="section hero" aria-labelledby="hero-title">
+    <div class="hero-text flow">
+      <h1 id="hero-title" class="display">Your Google Ads, kept in working order</h1>
+      <p class="lead">
+        {site.offer.name} is Google Ads management for small businesses that already advertise: a check every week, an
+        optimization pass every month and a one-page report in plain English.
+      </p>
+      <p class="lead hero-price">
+        <strong class="num">{price} a month</strong>, month to month. No setup fee, and the account stays yours.
+      </p>
+      <div class="actions hero-actions">
+        <BookingButton content="home" />
+        <SecondaryButton />
+      </div>
+      <p class="small muted">The review is free and takes 15 minutes. You get a straight answer on whether it fits.</p>
+    </div>
+  </section>
+
+  <Section
+    id="example-month"
+    title="What a month of upkeep looks like"
+    intro="Every check and every change is written down in a log like this one, and you see it in your monthly report."
+  >
+    <ServiceLog
+      title="Service log, March"
+      example
+      note="Example entries. In your log, every row is a real check or change in your account."
+      rows={exampleMonth}
+    />
+  </Section>
+
+  <Section id="fit" title="Who it’s for">
+    <ScopeList
+      included={offer.fit.good}
+      excluded={offer.fit.poor}
+      includedTitle="A good fit if"
+      excludedTitle="Probably not a fit if"
+    />
+  </Section>
+
+  <Section
+    id="included"
+    title="What’s included"
+    intro={`All of this is in the ${price} a month. Your ad spend is separate and goes straight to Google.`}
+  >
+    <ScopeList included={offer.included} split />
+    <p class="after-list">
+      <TextLink href="/pricing/#not-included" standalone>See what’s not included</TextLink>
+    </p>
+  </Section>
+
+  <Section id="how-it-starts" title="How it starts">
+    <Steps steps={steps} />
+  </Section>
+
+  <Section id="promises" title="What we can promise, and what we can’t">
+    <div class="grid">
+      <div class="span-6">
+        <h3 class="promise-title">We promise</h3>
+        <ScopeList
+          included={[
+            { title: 'The work', detail: 'Everything listed above, every month, written down in your log.' },
+            ...offer.promises,
+          ]}
+        />
+      </div>
+      <div class="span-6">
+        <PaperTag title="What we can’t promise">
+          <ul class="cant-list">
+            {offer.cant_promise.map((item) => <li>{item}</li>)}
+          </ul>
+          <p>Nobody can honestly promise these, so we don’t. We show you the work instead.</p>
+        </PaperTag>
+      </div>
+    </div>
+  </Section>
+
+  <Section id="questions" title="Questions people ask first">
+    <Faq items={faq} />
+    <p class="after-list">
+      <TextLink href="/faq/" standalone>More questions and answers</TextLink>
+    </p>
+  </Section>
+
+  <Closing page="home" />
+</Page>
+
+<style>
+  .hero {
+    padding-top: var(--space-7);
+  }
+
+  @media (min-width: 48rem) {
+    .hero {
+      padding-top: var(--space-8);
+    }
+  }
+
+  .hero-text {
+    max-width: 50rem;
+  }
+
+  .hero-price {
+    --flow-space: var(--space-2);
+  }
+
+  .hero-actions {
+    --flow-space: var(--space-6);
+  }
+
+  .after-list {
+    margin-top: var(--space-3);
+  }
+
+  .promise-title {
+    margin-bottom: var(--space-3);
+  }
+
+  .cant-list {
+    padding-left: 1.25rem;
+  }
+
+  .cant-list li + li {
+    margin-top: var(--space-2);
+  }
+</style>
