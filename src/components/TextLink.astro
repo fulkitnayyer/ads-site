@@ -1,0 +1,12 @@
+---
+// Links inside text. Plain <a> elements get the same style from global.css.
+// `standalone` is for a link on its own line: it gets a 44px tap target.
+interface Props {
+  href: string;
+  standalone?: boolean;
+}
+
+const { href, standalone = false } = Astro.props;
+---
+
+<a href={href} class:list={{ 'standalone-link': standalone }}><slot /></a>

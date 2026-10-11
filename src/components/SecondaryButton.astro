@@ -1,0 +1,10 @@
+---
+// The only secondary action on the site.
+import { WRITTEN_REVIEW_HREF } from '../lib/links';
+
+interface Props {
+  class?: string;
+}
+---
+
+<a class:list={['btn', 'btn-secondary', Astro.props.class]} href={WRITTEN_REVIEW_HREF}>Get a written review</a>

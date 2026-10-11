@@ -1,0 +1,138 @@
+---
+// What's in and what's out. Ticks in ink for included items; dashes in moss, in their own
+// column, for excluded ones. Either list can be used alone.
+type Item = string | { title: string; detail?: string };
+
+interface Props {
+  included?: Item[];
+  excluded?: Item[];
+  includedTitle?: string;
+  excludedTitle?: string;
+  /** id for the excluded column, so other pages can link straight to it. */
+  excludedId?: string;
+  headingLevel?: 2 | 3;
+  /** Lay a long single list out in two columns on wide screens. */
+  split?: boolean;
+}
+
+const {
+  included = [],
+  excluded = [],
+  includedTitle = 'Included',
+  excludedTitle = 'Not included',
+  excludedId,
+  headingLevel = 3,
+  split = false,
+} = Astro.props;
+
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+const both = included.length > 0 && excluded.length > 0;
+const normalize = (item: Item) => (typeof item === 'string' ? { title: item, detail: '' } : { detail: '', ...item });
+---
+
+<div class:list={['scope', { 'scope-both': both, 'scope-split': split && !both }]}>
+  {
+    included.length > 0 && (
+      <div class="scope-col">
+        {both && <Heading class="scope-title">{includedTitle}</Heading>}
+        <ul class="scope-list" role="list">
+          {included.map(normalize).map(({ title, detail }) => (
+            <li class="scope-item">
+              <svg class="tick" viewBox="0 0 24 24" width="20" height="20" aria-hidden="true" focusable="false">
+                <path d="M20 6 9 17l-5-5" />
+              </svg>
+              <span>
+                {detail ? (
+                  <>
+                    <strong>{title}.</strong> {detail}
+                  </>
+                ) : (
+                  title
+                )}
+              </span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+  {
+    excluded.length > 0 && (
+      <div class="scope-col scope-out" id={excludedId}>
+        {both && <Heading class="scope-title">{excludedTitle}</Heading>}
+        <ul class="scope-list" role="list">
+          {excluded.map(normalize).map(({ title, detail }) => (
+            <li class="scope-item">
+              <span class="dash" aria-hidden="true">
+                –
+              </span>
+              <span>{detail ? `${title}. ${detail}` : title}</span>
+            </li>
+          ))}
+        </ul>
+      </div>
+    )
+  }
+</div>
+
+<style>
+  .scope {
+    display: grid;
+    gap: var(--space-7) var(--gutter);
+  }
+
+  @media (min-width: 48rem) {
+    .scope-both {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .scope-split .scope-list {
+      columns: 2;
+      column-gap: var(--gutter);
+    }
+
+    .scope-split .scope-item {
+      break-inside: avoid;
+    }
+  }
+
+  .scope-title {
+    margin-bottom: var(--space-3);
+  }
+
+  .scope-list {
+    list-style: none;
+    padding: 0;
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .scope-item {
+    display: grid;
+    grid-template-columns: 1.75rem minmax(0, 1fr);
+    align-items: start;
+    padding-block: var(--space-3);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  /* Lucide "check", 1.5px stroke, centred on the first line of text */
+  .tick {
+    width: 1.25rem;
+    height: 1.25rem;
+    margin-top: calc((var(--body-leading) - 1.25rem) / 2);
+    fill: none;
+    stroke: var(--ink);
+    stroke-width: 1.5;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .dash {
+    width: 1.25rem;
+    font-weight: 600;
+    text-align: center;
+  }
+
+  .scope-out .scope-item {
+    color: var(--moss);
+  }
+</style>

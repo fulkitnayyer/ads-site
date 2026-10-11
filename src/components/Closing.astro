@@ -1,0 +1,37 @@
+---
+// The same ending on every selling page: the booking button, and "Get a written review" as the
+// only other action.
+import { site } from '../config/site';
+import BookingButton from './BookingButton.astro';
+import SecondaryButton from './SecondaryButton.astro';
+
+interface Props {
+  /** Page id for the booking link's utm_content. */
+  page: string;
+}
+
+const { page } = Astro.props;
+---
+
+<section class="section closing" aria-labelledby="closing-title">
+  <div class="flow">
+    <h2 id="closing-title">Start with a 15-minute review</h2>
+    <p class="lead">
+      It’s free. We look at your account together, and you get a straight answer on whether {site.offer.name} fits,
+      even if the answer is no.
+    </p>
+    <div class="actions closing-actions">
+      <BookingButton content={page} />
+      <SecondaryButton />
+    </div>
+    <p class="small muted">
+      Rather not talk yet? A written review works from read-only access, and you keep the findings either way.
+    </p>
+  </div>
+</section>
+
+<style>
+  .closing-actions {
+    margin-top: var(--space-6);
+  }
+</style>

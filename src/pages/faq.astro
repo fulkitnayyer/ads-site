@@ -1,0 +1,31 @@
+---
+import { getCollection } from 'astro:content';
+import Closing from '../components/Closing.astro';
+import Faq from '../components/Faq.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+import { faqSchema } from '../lib/schema';
+
+const faq = (await getCollection('faq')).sort((a, b) => a.data.order - b.data.order);
+---
+
+<Page
+  title="Questions and answers"
+  description={`Straight answers about ${site.offer.name}: contracts, who owns the account, ad spend, results, refunds, cancelling and your data.`}
+  page="faq"
+  structuredData={[faqSchema(faq.map(({ data }) => data))]}
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">Questions and answers</h1>
+      <p class="lead">Contracts, your account, results, and what happens if you leave. If yours isn’t here, email us.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-label="Questions">
+    <Faq items={faq} />
+  </section>
+
+  <Closing page="faq" />
+</Page>
+

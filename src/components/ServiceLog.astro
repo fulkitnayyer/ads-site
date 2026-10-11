@@ -1,0 +1,227 @@
+---
+// The signature element: a service logbook. White surface, 1.5px ink top rule, three columns,
+// ruled rows and a small "Checked" stamp. On the site it's always an example and labelled so;
+// it never shows numbers that look like client results. Prospect pages use the same format for
+// their observations, with their own column names.
+import type { ImageMetadata } from 'astro';
+import { Image } from 'astro:assets';
+import PaperTag from './PaperTag.astro';
+
+interface Cell {
+  title?: string;
+  text?: string;
+  /** A screenshot under the text, e.g. of a prospect's ad. */
+  image?: { src: ImageMetadata; alt: string };
+}
+
+interface Row {
+  /** YYYY-MM-DD */
+  date: string;
+  checked: Cell | string;
+  changed: Cell | string;
+  stamp?: boolean;
+}
+
+interface Props {
+  title: string;
+  rows: Row[];
+  /** Labels the log "Example". Required on site pages, where every log is an example. */
+  example?: boolean;
+  /** A line under the title, such as the search that was checked. */
+  note?: string;
+  columns?: [string, string, string];
+  /** 'weekday' gives "Mon, Mar 2"; 'full' gives "Oct 9, 2026". */
+  dateStyle?: 'weekday' | 'full';
+  stampLabel?: string;
+}
+
+const {
+  title,
+  rows,
+  example = false,
+  note,
+  columns = ['Date', 'What was checked', 'What changed'],
+  dateStyle = 'weekday',
+  stampLabel = 'Checked',
+} = Astro.props;
+
+const formatter = new Intl.DateTimeFormat(
+  'en-US',
+  dateStyle === 'weekday'
+    ? { weekday: 'short', month: 'short', day: 'numeric', timeZone: 'UTC' }
+    : { month: 'short', day: 'numeric', year: 'numeric', timeZone: 'UTC' },
+);
+const formatDate = (iso: string) => formatter.format(new Date(`${iso}T00:00:00Z`));
+const asCell = (cell: Cell | string): Cell => (typeof cell === 'string' ? { text: cell } : cell);
+---
+
+<figure class="log">
+  <figcaption class="log-head">
+    <span class="log-title">{title}</span>
+    {example && <PaperTag kind="label">Example</PaperTag>}
+  </figcaption>
+  {note && <p class="log-note">{note}</p>}
+  <div class="log-columns" aria-hidden="true">
+    <span>{columns[0]}</span>
+    <span>{columns[1]}</span>
+    <span>{columns[2]}</span>
+  </div>
+  <ol class="log-rows" role="list">
+    {
+      rows.map((row) => (
+        <li class="log-row">
+          <p class="log-date num">
+            <span class="sr-only">{columns[0]}: </span>
+            <time datetime={row.date}>{formatDate(row.date)}</time>
+          </p>
+          {[asCell(row.checked), asCell(row.changed)].map((cell, i) => (
+            <div class="log-cell">
+              <p class="log-label">{columns[i + 1]}</p>
+              {cell.title && <p class="log-cell-title">{cell.title}</p>}
+              {cell.text && <p>{cell.text}</p>}
+              {cell.image && (
+                <Image
+                  class="log-image"
+                  src={cell.image.src}
+                  alt={cell.image.alt}
+                  widths={[360, 720, 1080]}
+                  sizes="(min-width: 48rem) 28rem, calc(100vw - 4rem)"
+                />
+              )}
+              {i === 1 && row.stamp && (
+                <p class="log-stamp">
+                  <span class="stamp">{stampLabel}</span>
+                </p>
+              )}
+            </div>
+          ))}
+        </li>
+      ))
+    }
+  </ol>
+</figure>
+
+<style>
+  .log {
+    background: var(--white);
+    border-top: var(--ink-line) solid var(--ink);
+    border-radius: var(--radius-log);
+    padding: var(--space-4) var(--space-4) var(--space-2);
+  }
+
+  .log-head {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    justify-content: space-between;
+    gap: var(--space-2) var(--space-4);
+  }
+
+  .log-title {
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-weight: 700;
+  }
+
+  .log-note {
+    margin-top: var(--space-1);
+    color: var(--moss);
+    font-size: var(--small-size);
+    line-height: var(--small-leading);
+  }
+
+  .log-columns {
+    display: none;
+  }
+
+  .log-rows {
+    list-style: none;
+    padding: 0;
+    margin-top: var(--space-4);
+  }
+
+  .log-row {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-4);
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .log-date {
+    font-weight: 700;
+  }
+
+  .log-label {
+    color: var(--moss);
+    font-size: var(--small-size);
+    line-height: var(--small-leading);
+  }
+
+  .log-cell-title {
+    font-weight: 600;
+  }
+
+  .log-image {
+    margin-top: var(--space-3);
+    border: var(--hairline) solid var(--rule);
+    border-radius: var(--radius);
+  }
+
+  .log-stamp {
+    margin-top: var(--space-2);
+  }
+
+  .stamp {
+    display: inline-block;
+    padding: 0 var(--space-2);
+    border: var(--ink-line) solid var(--stamp);
+    border-radius: var(--radius);
+    color: var(--stamp);
+    font-size: var(--small-size);
+    line-height: 1.5rem;
+    font-weight: 700;
+    font-stretch: var(--wide-h2);
+    letter-spacing: 0.02em;
+    transform: rotate(-2deg);
+  }
+
+  @media (min-width: 48rem) {
+    .log {
+      padding: var(--space-5) var(--space-6) var(--space-3);
+    }
+
+    .log-columns,
+    .log-row {
+      display: grid;
+      grid-template-columns: 8.5rem minmax(0, 1fr) minmax(0, 1fr);
+      column-gap: var(--gutter);
+    }
+
+    .log-columns {
+      margin-top: var(--space-5);
+      padding-bottom: var(--space-2);
+      color: var(--moss);
+      font-size: var(--small-size);
+      line-height: var(--small-leading);
+    }
+
+    .log-rows {
+      margin-top: 0;
+    }
+
+    .log-row {
+      row-gap: 0;
+    }
+
+    /* The column header row names the columns on wide screens; keep the labels for screen readers. */
+    .log-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+</style>

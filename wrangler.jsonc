@@ -1,0 +1,18 @@
+// Cloudflare Workers, static assets only: no Worker script runs.
+// Deploy with `npm run deploy` (builds first). Headers come from public/_headers.
+{
+  "$schema": "./node_modules/wrangler/config-schema.json",
+  "name": "ads-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "./dist",
+    // /pricing redirects to /pricing/, matching trailingSlash: 'always'.
+    "html_handling": "auto-trailing-slash",
+    // Unknown paths get dist/404.html with a 404 status.
+    "not_found_handling": "404-page"
+  }
+  // adsmechanic.com is attached in the Cloudflare dashboard (Worker > Settings > Domains & Routes).
+  // Wrangler leaves dashboard domains alone while no custom domains are listed here. If you ever
+  // list one here, Wrangler manages the full set from this file and removes any others.
+  // www.adsmechanic.com redirects to the apex with a Cloudflare redirect rule (see README).
+}

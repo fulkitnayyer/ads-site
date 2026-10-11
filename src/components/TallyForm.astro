@@ -1,0 +1,68 @@
+---
+// A Tally form on a white form surface. The iframe works without JavaScript; Tally's embed
+// script, if it loads, only adjusts the height to fit the form.
+//
+// Fields are styled inside Tally, not here. Match the design standard in Tally's form settings:
+// labels above fields, 17px inputs, errors in #B5480F with a written explanation, Archivo or a
+// plain sans-serif. Give input borders at least 3:1 contrast against white (WCAG 1.4.11);
+// moss (#5A6B62) works, the lighter rule colour does not.
+import { site } from '../config/site';
+
+interface Props {
+  /** Describes the form for screen readers, e.g. "Contact form". */
+  title: string;
+  formId?: string;
+  /** Height before Tally's script resizes it. */
+  height?: number;
+}
+
+const { title, formId = site.tally.contactFormId, height = 560 } = Astro.props;
+const ready = Boolean(formId) && formId !== 'TALLY_FORM_ID';
+const params = 'alignLeft=1&hideTitle=1&transparentBackground=1&dynamicHeight=1';
+---
+
+<div class="form-surface">
+  {
+    ready ? (
+      <>
+        <iframe
+          src={`https://tally.so/embed/${formId}?${params}`}
+          title={title}
+          width="100%"
+          height={height}
+          loading="lazy"
+        />
+        <p class="small muted form-fallback">
+          Form not loading? <a href={`https://tally.so/r/${formId}`}>Open it on Tally</a>.
+        </p>
+        <script is:inline async src="https://tally.so/widgets/embed.js" />
+      </>
+    ) : (
+      <p class="small">TODO(owner): set this form's Tally ID in src/config/site.ts to show it here.</p>
+    )
+  }
+</div>
+
+<style>
+  .form-surface {
+    background: var(--white);
+    border-radius: var(--radius-log);
+    padding: var(--space-5) var(--space-4);
+  }
+
+  @media (min-width: 48rem) {
+    .form-surface {
+      padding: var(--space-6);
+    }
+  }
+
+  iframe {
+    display: block;
+    width: 100%;
+    border: 0;
+  }
+
+  .form-fallback {
+    margin-top: var(--space-4);
+  }
+</style>

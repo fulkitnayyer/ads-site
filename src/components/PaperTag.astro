@@ -1,0 +1,63 @@
+---
+// A manila paper tag: a note panel ("What we can't see from here") or a small label ("Example").
+// No icon. Text on manila stays ink: moss and stamp fall below 4.5:1 on it.
+interface Props {
+  kind?: 'note' | 'label';
+  /** Heading for a note. */
+  title?: string;
+  headingLevel?: 2 | 3;
+  class?: string;
+}
+
+const { kind = 'note', title, headingLevel = 3, class: className } = Astro.props;
+const Heading = `h${headingLevel}` as 'h2' | 'h3';
+---
+
+{
+  kind === 'label' ? (
+    <span class:list={['tag-label', className]}>
+      <slot />
+    </span>
+  ) : (
+    <div class:list={['tag-note', className]}>
+      {title && <Heading class="tag-title">{title}</Heading>}
+      <div class="tag-body flow">
+        <slot />
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .tag-note {
+    background: var(--manila);
+    color: var(--ink);
+    border-radius: var(--radius);
+    padding: var(--space-5);
+  }
+
+  .tag-title {
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-weight: 700;
+    font-stretch: 100%;
+    margin-bottom: var(--space-3);
+  }
+
+  .tag-body :global(a) {
+    color: var(--ink);
+  }
+
+  .tag-label {
+    display: inline-block;
+    padding: 0 var(--space-2);
+    background: var(--manila);
+    color: var(--ink);
+    border-radius: var(--radius);
+    font-size: var(--small-size);
+    line-height: 1.625rem;
+    font-weight: 600;
+    font-stretch: 100%;
+    white-space: nowrap;
+  }
+</style>

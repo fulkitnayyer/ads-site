@@ -1,0 +1,25 @@
+---
+// Site pages: header, main content, footer.
+import Footer from '../components/Footer.astro';
+import Header from '../components/Header.astro';
+import Base from './Base.astro';
+
+interface Props {
+  title: string;
+  description: string;
+  /** Short page id, used as utm_content on booking links: 'home', 'pricing'. */
+  page: string;
+  noindex?: boolean;
+  structuredData?: Record<string, unknown>[];
+}
+
+const { page, ...base } = Astro.props;
+---
+
+<Base {...base}>
+  <Header bookingContent={page} />
+  <main id="main" class="wrap" tabindex="-1">
+    <slot />
+  </main>
+  <Footer />
+</Base>

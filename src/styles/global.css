@@ -1,0 +1,393 @@
+/* One font file: Archivo variable, Latin subset, width 100-118 and weight 400-800 (scripts/subset-font.sh). */
+@font-face {
+  font-family: 'Archivo';
+  src: url('/fonts/archivo.woff2') format('woff2');
+  font-weight: 400 800;
+  font-stretch: 100% 118%;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Local fonts sized to Archivo's average letter width, so lines wrap the same way and nothing
+ * shifts when Archivo arrives. Arial covers Windows, macOS and iOS; Roboto covers Android. Their
+ * average widths are within 1% of each other. Regular matches body text (400, width 100); bold
+ * matches headings (800, width 115).
+ */
+@font-face {
+  font-family: 'Archivo fallback';
+  src: local('Arial'), local('ArialMT'), local('Roboto'), local('Roboto-Regular');
+  font-weight: 100 649;
+  size-adjust: 98.7%;
+  ascent-override: 89%;
+  descent-override: 21.3%;
+  line-gap-override: 0%;
+}
+
+@font-face {
+  font-family: 'Archivo fallback';
+  src: local('Arial Bold'), local('Arial-BoldMT'), local('Roboto Bold'), local('Roboto-Bold');
+  font-weight: 650 900;
+  size-adjust: 117%;
+  ascent-override: 75%;
+  descent-override: 18%;
+  line-gap-override: 0%;
+}
+
+/* Base */
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  scroll-padding-top: var(--space-6);
+}
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--paper);
+  color: var(--ink);
+  font-family: var(--font);
+  font-size: var(--body-size);
+  line-height: var(--body-leading);
+  font-weight: 400;
+  font-stretch: 100%;
+  font-kerning: normal;
+  font-synthesis-weight: none;
+}
+
+main {
+  flex: 1;
+}
+
+#main:focus {
+  outline: none;
+}
+
+h1,
+h2,
+h3,
+h4,
+p,
+ul,
+ol,
+dl,
+dd,
+figure,
+blockquote,
+address {
+  margin: 0;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  text-wrap: balance;
+}
+
+/* Prose measure on paragraphs only: list items are often layout rows (log, scope, steps). */
+p,
+dd {
+  max-width: var(--measure);
+}
+
+p,
+li,
+dd {
+  text-wrap: pretty;
+}
+
+address {
+  font-style: normal;
+}
+
+img,
+svg {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+
+::selection {
+  background: var(--manila);
+  color: var(--ink);
+}
+
+/* Type styles */
+
+.display {
+  font-size: var(--display-size);
+  line-height: var(--display-leading);
+  font-weight: 800;
+  font-stretch: var(--wide-display);
+  letter-spacing: -0.01em;
+}
+
+h1,
+.h1 {
+  font-size: var(--h1-size);
+  line-height: var(--h1-leading);
+  font-weight: 800;
+  font-stretch: var(--wide-h1);
+  letter-spacing: -0.005em;
+}
+
+h2,
+.h2 {
+  font-size: var(--h2-size);
+  line-height: var(--h2-leading);
+  font-weight: 700;
+  font-stretch: var(--wide-h2);
+}
+
+h3,
+.h3 {
+  font-size: var(--h3-size);
+  line-height: var(--h3-leading);
+  font-weight: 700;
+  font-stretch: 100%;
+}
+
+.lead {
+  font-size: var(--lead-size);
+  line-height: var(--lead-leading);
+}
+
+.small {
+  font-size: var(--small-size);
+  line-height: var(--small-leading);
+}
+
+.muted {
+  color: var(--moss);
+}
+
+.num {
+  font-variant-numeric: tabular-nums;
+}
+
+strong,
+b {
+  font-weight: 700;
+}
+
+/* TextLink: ink, 1px underline 3px below, thicker on hover */
+a {
+  color: var(--ink);
+  text-decoration-line: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 3px;
+}
+
+a:hover {
+  text-decoration-thickness: 2px;
+}
+
+/* A link on its own line, not inside a sentence: 44px tall to tap */
+.standalone-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+}
+
+:focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 3px;
+}
+
+.skip-link {
+  position: absolute;
+  z-index: 100;
+  top: var(--space-2);
+  left: var(--margin);
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--tap);
+  padding: 0 var(--space-4);
+  background: var(--white);
+  border: var(--ink-line) solid var(--ink);
+  border-radius: var(--radius);
+  font-weight: 600;
+  text-decoration: none;
+  transform: translateY(-200%);
+}
+
+.skip-link:focus {
+  transform: none;
+}
+
+.sr-only {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* Layout */
+
+.wrap {
+  width: 100%;
+  max-width: calc(var(--page-max) + 2 * var(--margin));
+  margin-inline: auto;
+  padding-inline: var(--margin);
+}
+
+/* Sections sit 64px apart on phones and 96px on larger screens, with one ruled line between. */
+.section {
+  padding-block: var(--section-half);
+}
+
+.section + .section {
+  border-top: var(--hairline) solid var(--rule);
+}
+
+.section-head {
+  margin-bottom: var(--space-6);
+}
+
+.section-head > * {
+  max-width: 46rem;
+}
+
+/* Vertical rhythm inside a block of text */
+.flow > * + * {
+  margin-top: var(--flow-space, var(--space-4));
+}
+
+/* The opening section of a page: H1, lead and the first buttons */
+.page-intro {
+  padding-top: var(--space-7);
+}
+
+@media (min-width: 48rem) {
+  .page-intro {
+    padding-top: var(--space-8);
+  }
+}
+
+.intro-text {
+  max-width: 50rem;
+}
+
+.intro-actions {
+  --flow-space: var(--space-6);
+}
+
+/* 12 columns with 24px gutters from 768px up; one column on phones */
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: var(--space-7) var(--gutter);
+}
+
+@media (min-width: 48rem) {
+  .grid {
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+  }
+
+  .span-3 {
+    grid-column: span 3;
+  }
+
+  .span-4 {
+    grid-column: span 4;
+  }
+
+  .span-5 {
+    grid-column: span 5;
+  }
+
+  .span-6 {
+    grid-column: span 6;
+  }
+
+  .span-7 {
+    grid-column: span 7;
+  }
+
+  .span-8 {
+    grid-column: span 8;
+  }
+
+  .span-12 {
+    grid-column: span 12;
+  }
+}
+
+/* Buttons: BookingButton (.btn-book) and SecondaryButton (.btn-secondary) */
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--button-height);
+  padding: 0.6875rem 1.25rem;
+  border: var(--ink-line) solid var(--ink);
+  border-radius: var(--radius);
+  background: transparent;
+  color: var(--ink);
+  font: inherit;
+  font-size: var(--button-size);
+  line-height: 1.5rem;
+  font-weight: 600;
+  font-stretch: 100%;
+  text-align: center;
+  text-decoration: none;
+  cursor: pointer;
+  transition: background-color 120ms ease-out;
+}
+
+.btn-book {
+  background: var(--signal);
+}
+
+/* Lighter, not darker: ink text keeps 5.7:1 on the hover fill. */
+.btn-book:hover {
+  background: color-mix(in srgb, var(--signal) 82%, var(--white));
+}
+
+.btn-secondary:hover {
+  background: var(--white);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: var(--space-3) var(--space-4);
+}
+
+@media (width < 30rem) {
+  .actions > .btn {
+    width: 100%;
+  }
+}
+
+.plain-list {
+  list-style: none;
+  padding: 0;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    transition-duration: 0.01ms !important;
+    animation-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}

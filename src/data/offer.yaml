@@ -1,0 +1,81 @@
+# The offer, in one place. Home, Pricing and prospect pages all read this file,
+# so change the offer here rather than in page copy.
+# Prices live in src/config/site.ts. Write them here as tokens: {price}, {plusFrom}, {offer}, {plus}.
+
+included:
+  - title: A month-1 clean-up
+    detail: Search terms, negative keywords and ad assets, plus a check that your call and form tracking fires.
+  - title: One optimization pass a month
+    detail: About 90 minutes of focused work on search terms, keywords, ads, bids and budget.
+  - title: A 10-minute check every week
+    detail: Spend pacing, disapproved ads and tracking.
+  - title: A one-page report every month
+    detail: In plain English. What was spent, what it brought in, what changed and what’s next.
+  - title: Up to 2 change requests a month
+    detail: Done within 2 business days.
+  - title: Email support
+    detail: A reply within 1 business day.
+  - title: The account stays yours
+    detail: You own it, and you pay Google directly.
+
+not_included:
+  - More than 2 campaigns
+  - Performance Max, Shopping, Display or YouTube campaigns
+  - Landing-page builds
+  - Call-tracking platform setup
+  - Weekly calls (questions go by email)
+  - Meta ads, Local Services Ads or SEO
+  - More than one location
+  - Any guarantee of leads
+
+promises:
+  - title: No contract, no setup fee
+    detail: Month to month. Cancel by email, any time.
+  - title: First-month refund
+    detail: If you don’t think the first month was worth it, say so and you get it back.
+  - title: The account stays yours
+    detail: We work through a manager link that you can remove in one click.
+
+# Said plainly next to the promises.
+cant_promise:
+  - A set number of leads or calls.
+  - A cost per lead, or a top spot on the page.
+  - Google’s own decisions, such as whether an ad is approved.
+  - Results that depend on things outside the account, like your website, your prices or how fast the phone gets answered.
+
+# Who it's for, on Home. The audience in the project brief.
+fit:
+  good:
+    - You run one location in the US.
+    - You already run Google Ads, spending about $500 to $3,000 a month.
+    - Your account has up to 2 Search campaigns.
+    - You want it looked after every week without a long contract.
+  poor:
+    - You have more than one location.
+    - Most of your budget goes to Performance Max, Shopping, Display or YouTube.
+    - You spend more than $3,000 a month. {plus} may fit instead.
+    - You want a guaranteed number of leads.
+
+# The accounts the {price} price covers, on Pricing.
+limits:
+  - Up to 2 Search campaigns
+  - Up to $3,000 a month in ad spend
+  - One location
+
+# TODO(owner): confirm what Upkeep Plus covers and how it's priced.
+plus: >-
+  For accounts past these limits, such as more campaigns or higher spend.
+  {plus} starts at {plusFrom} a month, and you get a fixed monthly price after the free review.
+
+# TODO(owner): draft list. Confirm which one-time add-ons you offer and set each price in whole
+# US dollars. A missing price shows as a TODO on the page and fails `npm run check:launch`.
+addons:
+  - name: Conversion tracking setup
+    detail: Calls and form fills tracked with Google Tag Manager and GA4, then tested end to end.
+    price: null
+  - name: New Search campaign build
+    detail: Keyword research, ad groups, ads and settings for one new Search campaign.
+    price: null
+  - name: Landing-page notes
+    detail: "Written notes on one landing page: what someone from your ad sees first, and what to change."
+    price: null

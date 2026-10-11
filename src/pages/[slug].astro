@@ -1,0 +1,180 @@
+---
+// One page per publishable row of src/data/prospects.csv (see src/content.config.ts).
+// noindex, never linked, not in the sitemap. Every observation is something any searcher could
+// see, with the date it was seen.
+import type { ImageMetadata } from 'astro';
+import { getCollection, getEntry } from 'astro:content';
+import BookingButton from '../components/BookingButton.astro';
+import PaperTag from '../components/PaperTag.astro';
+import ScopeList from '../components/ScopeList.astro';
+import SecondaryButton from '../components/SecondaryButton.astro';
+import ServiceLog from '../components/ServiceLog.astro';
+import TextLink from '../components/TextLink.astro';
+import { site } from '../config/site';
+import Prospect from '../layouts/Prospect.astro';
+import { formatMoney } from '../lib/text';
+
+export async function getStaticPaths() {
+  const prospects = await getCollection('prospects');
+  return prospects.map((entry) => ({ params: { slug: entry.id }, props: { prospect: entry.data } }));
+}
+
+const { prospect } = Astro.props;
+const offer = (await getEntry('offer', 'offer'))!.data;
+const price = formatMoney(site.offer.price);
+
+const screenshots = import.meta.glob<ImageMetadata>('../data/prospect-images/*.{png,jpg,jpeg,webp}', {
+  eager: true,
+  import: 'default',
+});
+const screenshot = (file: string) => {
+  const image = screenshots[`../data/prospect-images/${file}`];
+  if (!image) throw new Error(`Screenshot ${file} for /${prospect.slug}/ isn't in src/data/prospect-images/`);
+  return image;
+};
+
+// "Not included: more than 2 campaigns; Performance Max, ..." keeping product names capitalised.
+const properNoun = /^(Performance|Meta|Google|YouTube|Local|SEO|Shopping|Display)\b/;
+const notIncluded = offer.not_included
+  .map((item) => (properNoun.test(item) ? item : item.charAt(0).toLowerCase() + item.slice(1)))
+  .join('; ');
+
+const count = ['One thing', 'Two things', 'Three things'][prospect.observations.length - 1];
+const searchedOn = [prospect.searchLocation && `from ${prospect.searchLocation}`, prospect.searchDevice && `on ${prospect.searchDevice}`]
+  .filter(Boolean)
+  .join(' ');
+
+const rows = prospect.observations.map((observation) => ({
+  date: prospect.checkedOn,
+  checked: {
+    title: observation.title,
+    text: observation.text,
+    image: observation.image
+      ? { src: screenshot(observation.image), alt: `Screenshot: ${observation.title}` }
+      : undefined,
+  },
+  changed: observation.check || 'We’d need to see inside the account first.',
+}));
+---
+
+<Prospect
+  title={`${prospect.businessName}: notes on your Google ads`}
+  description={`A short, outside-only look at ${prospect.businessPossessive} Google ad and landing page.`}
+  slug={prospect.slug}
+  bookingHref={prospect.ctaLink}
+  sample={prospect.sample}
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <p class="small muted">Prepared for {prospect.businessName}</p>
+      <h1 id="intro-title">{count} we noticed about {prospect.businessPossessive} Google ad and landing page</h1>
+      <p class="lead">
+        On {prospect.checkedOnLabel}, we searched Google for “{prospect.searchTerm}”{searchedOn && ` ${searchedOn}`}.
+        Everything below is what any searcher could see. We haven’t seen inside your account, so there are no guesses
+        here about your spend or your results.
+      </p>
+      <div class="actions intro-actions">
+        <BookingButton content={prospect.slug} source="outreach" href={prospect.ctaLink} />
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <ServiceLog
+      title="What we noticed"
+      note={`Search: “${prospect.searchTerm}”${searchedOn ? `, ${searchedOn}` : ''}`}
+      columns={['Date', 'What we noticed', 'What we’d check inside your account']}
+      dateStyle="full"
+      rows={rows}
+    />
+    <div class="cant-see">
+      <PaperTag title="What we can’t see from here" headingLevel={2}>
+        <p>
+          Your spend, cost per lead, conversions, keywords and settings are only visible inside your account. These notes
+          are a starting point. A 15-minute call is how we’d find out whether they matter for your numbers.
+        </p>
+      </PaperTag>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="offer-title">
+    <div class="flow offer-text">
+      <h2 id="offer-title">What we’d do, and what it costs</h2>
+      <p>
+        {site.offer.name} is Google Ads management for one account with up to 2 Search campaigns. One specialist does the
+        work, with 3 years of hands-on Google Ads work for small businesses in the US and Canada. There’s no account
+        manager in between.
+      </p>
+      <p class="price-line">
+        <strong class="price num">{price}</strong>
+        <span>a month, month to month</span>
+      </p>
+    </div>
+    <div class="offer-list">
+      <ScopeList included={offer.included} split />
+      <p class="small muted not-included">Not included: {notIncluded}.</p>
+      <p>
+        <TextLink href="/pricing/#not-included" standalone>Full scope and add-ons</TextLink>
+      </p>
+    </div>
+    <h3 class="promises-title">So it’s easy to say yes</h3>
+    <ScopeList included={offer.promises} />
+  </section>
+
+  <section class="section" aria-labelledby="next-title">
+    <div class="flow">
+      <h2 id="next-title">The next step</h2>
+      <p class="lead">
+        Pick a time and we’ll go through these notes with you in 15 minutes. Or give read-only access and get written
+        findings instead. You keep them either way.
+      </p>
+      <div class="actions next-actions">
+        <BookingButton content={prospect.slug} source="outreach" href={prospect.ctaLink} />
+        <SecondaryButton />
+      </div>
+      <p class="small muted">Prefer email? Reply to the email we sent and it comes straight to the specialist.</p>
+    </div>
+  </section>
+</Prospect>
+
+<style>
+  .next-actions {
+    --flow-space: var(--space-6);
+  }
+
+  .cant-see {
+    margin-top: var(--space-6);
+    max-width: 46rem;
+  }
+
+  .offer-text {
+    max-width: 46rem;
+  }
+
+  .price-line {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-3);
+  }
+
+  .price {
+    font-size: var(--h1-size);
+    line-height: var(--h1-leading);
+    font-weight: 800;
+    font-stretch: var(--wide-h1);
+  }
+
+  .offer-list {
+    margin-top: var(--space-6);
+  }
+
+  .not-included {
+    margin-top: var(--space-4);
+  }
+
+  .promises-title {
+    margin-top: var(--space-7);
+    margin-bottom: var(--space-3);
+  }
+</style>

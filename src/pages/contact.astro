@@ -1,0 +1,83 @@
+---
+import Closing from '../components/Closing.astro';
+import TallyForm from '../components/TallyForm.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+import { organizationSchema } from '../lib/schema';
+
+const { email, phone, address, hours } = site.contact;
+// A placeholder phone number isn't a number anyone can call yet.
+const phoneHref = /^[+\d\s().-]+$/.test(phone) ? `tel:${phone.replace(/[^\d+]/g, '')}` : '';
+---
+
+<Page
+  title="Contact"
+  description={`Email, phone, postal address and hours for ${site.name}. Email gets a reply within 1 business day.`}
+  page="contact"
+  structuredData={[organizationSchema()]}
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">Contact</h1>
+      <p class="lead">Email is quickest, with a reply within 1 business day. The form goes to the same inbox.</p>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="details-title">
+    <h2 id="details-title" class="sr-only">Contact details and form</h2>
+    <div class="grid">
+      <dl class="span-5 details">
+        <div>
+          <dt>Email</dt>
+          <dd><a href={`mailto:${email}`}>{email}</a></dd>
+        </div>
+        <div>
+          <dt>Phone</dt>
+          <dd>{phoneHref ? <a href={phoneHref}>{phone}</a> : phone}</dd>
+        </div>
+        <div>
+          <dt>Postal address</dt>
+          <dd><address>{address}</address></dd>
+        </div>
+        <div>
+          <dt>Hours</dt>
+          <dd>{hours}</dd>
+        </div>
+      </dl>
+      <div class="span-7">
+        <TallyForm title="Contact form" />
+      </div>
+    </div>
+  </section>
+
+  <Closing page="contact" />
+</Page>
+
+<style>
+  .details {
+    border-top: var(--ink-line) solid var(--ink);
+    align-self: start;
+  }
+
+  .details > div {
+    padding-block: var(--space-3);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .details dt {
+    color: var(--moss);
+    font-size: var(--small-size);
+    line-height: var(--small-leading);
+  }
+
+  .details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .details dd a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+</style>

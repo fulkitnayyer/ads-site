@@ -1,0 +1,200 @@
+---
+// Layout for the Markdown legal pages (privacy, terms, service terms). The Markdown never names
+// the business, its contact details or the governing state: they come from src/config/site.ts
+// and appear in the key details at the top. With `schedule: true` in the frontmatter, the price
+// and scope from site.ts and offer.yaml are added at the end, so the terms can't drift from them.
+import { getEntry } from 'astro:content';
+import PaperTag from '../components/PaperTag.astro';
+import ScopeList from '../components/ScopeList.astro';
+import { site } from '../config/site';
+import { formatMoney } from '../lib/text';
+import Page from './Page.astro';
+
+interface Props {
+  frontmatter: {
+    title: string;
+    description: string;
+    /** YYYY-MM-DD */
+    updated: string | Date;
+    governingLaw?: boolean;
+    schedule?: boolean;
+  };
+}
+
+const { title, description, updated, governingLaw = false, schedule = false } = Astro.props.frontmatter;
+const page = Astro.url.pathname.replaceAll('/', '');
+// YAML reads 2026-10-11 as a timestamp, which can arrive as a Date or as an ISO string.
+const updatedIso = (updated instanceof Date ? updated.toISOString() : String(updated)).slice(0, 10);
+if (!/^\d{4}-\d{2}-\d{2}$/.test(updatedIso)) throw new Error(`${page}: "updated" must be a date written YYYY-MM-DD`);
+const updatedDate = new Date(`${updatedIso}T00:00:00Z`);
+const updatedLabel = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' }).format(updatedDate);
+const offer = schedule ? (await getEntry('offer', 'offer'))!.data : null;
+---
+
+<Page title={title} description={description} page={page}>
+  <article class="section page-intro legal">
+    <header class="flow legal-head">
+      <h1>{title}</h1>
+      <p class="small muted">Last updated <time datetime={updatedIso}>{updatedLabel}</time></p>
+    </header>
+
+    <div class="key-details">
+      <PaperTag title="Key details" headingLevel={2}>
+        <dl class="details">
+          <div>
+            <dt>Business</dt>
+            <dd>{site.legal.entity}, trading as {site.name} (“we”, “us”)</dd>
+          </div>
+          <div>
+            <dt>Email</dt>
+            <dd><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></dd>
+          </div>
+          <div>
+            <dt>Postal address</dt>
+            <dd>{site.contact.address}</dd>
+          </div>
+          {
+            governingLaw && (
+              <div>
+                <dt>Governing law</dt>
+                <dd>{site.legal.governingState}</dd>
+              </div>
+            )
+          }
+        </dl>
+      </PaperTag>
+    </div>
+
+    <div class="prose">
+      <slot />
+    </div>
+
+    {
+      offer && (
+        <section class="schedule" aria-labelledby="schedule-title">
+          <h2 id="schedule-title">Schedule: price and scope</h2>
+          <p class="prose-p">
+            {site.offer.name} costs {formatMoney(site.offer.price)} a month, in US dollars, for one Google Ads account
+            within these limits:
+          </p>
+          <ScopeList included={offer.limits} />
+          <div class="schedule-scope">
+            <ScopeList included={offer.included} excluded={offer.not_included} headingLevel={3} />
+          </div>
+          <h3 class="schedule-sub">Promises</h3>
+          <ScopeList included={offer.promises} />
+        </section>
+      )
+    }
+  </article>
+</Page>
+
+<style>
+  .legal-head {
+    max-width: 46rem;
+  }
+
+  .key-details {
+    max-width: 46rem;
+    margin-top: var(--space-6);
+  }
+
+  .details > div {
+    display: grid;
+    gap: 0 var(--space-4);
+    padding-block: var(--space-2);
+  }
+
+  @media (min-width: 48rem) {
+    .details > div {
+      grid-template-columns: 9rem minmax(0, 1fr);
+    }
+  }
+
+  .details dt {
+    font-weight: 600;
+  }
+
+  .details dd {
+    margin: 0;
+    overflow-wrap: anywhere;
+  }
+
+  .details dd a {
+    display: inline-flex;
+    align-items: center;
+    min-height: var(--tap);
+  }
+
+  /* Markdown content arrives through the slot, so these reach it with :global(). */
+  .prose {
+    max-width: 46rem;
+    margin-top: var(--space-7);
+  }
+
+  .prose > :global(* + *) {
+    margin-top: var(--space-4);
+  }
+
+  .prose :global(h2) {
+    margin-top: var(--space-7);
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-stretch: 100%;
+  }
+
+  .prose :global(h3) {
+    margin-top: var(--space-5);
+    font-size: var(--body-size);
+    line-height: var(--body-leading);
+  }
+
+  .prose :global(h2 + *),
+  .prose :global(h3 + *) {
+    margin-top: var(--space-2);
+  }
+
+  .prose :global(ul),
+  .prose :global(ol) {
+    padding-left: 1.25rem;
+  }
+
+  .prose :global(li + li) {
+    margin-top: var(--space-2);
+  }
+
+  /* Draft notes for the owner, written as blockquotes */
+  .prose :global(blockquote) {
+    margin: 0;
+    padding: var(--space-4) var(--space-5);
+    background: var(--manila);
+    border-radius: var(--radius);
+  }
+
+  .schedule {
+    max-width: 46rem;
+    margin-top: var(--space-8);
+    padding-top: var(--space-5);
+    border-top: var(--ink-line) solid var(--ink);
+  }
+
+  .schedule h2 {
+    font-size: var(--h3-size);
+    line-height: var(--h3-leading);
+    font-stretch: 100%;
+  }
+
+  .prose-p {
+    margin-block: var(--space-2) var(--space-4);
+  }
+
+  .schedule-scope {
+    margin-top: var(--space-6);
+  }
+
+  .schedule-sub {
+    margin-block: var(--space-6) var(--space-3);
+    font-size: var(--body-size);
+    line-height: var(--body-leading);
+  }
+</style>

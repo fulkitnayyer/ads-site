@@ -1,0 +1,19 @@
+---
+// The main action on every selling page. The label never changes and there's no icon.
+import { BOOKING_LABEL, bookingUrl } from '../lib/links';
+
+interface Props {
+  /** Page id on site pages ('home', 'pricing'); the business slug on prospect pages. */
+  content: string;
+  source?: 'site' | 'outreach';
+  /** One prospect's own booking link (the cta_link column). UTM tags are still added. */
+  href?: string;
+  class?: string;
+}
+
+const { content, source = 'site', href, class: className } = Astro.props;
+---
+
+<a class:list={['btn', 'btn-book', className]} href={bookingUrl(content, source, href || undefined)} data-track="cta">
+  {BOOKING_LABEL}
+</a>

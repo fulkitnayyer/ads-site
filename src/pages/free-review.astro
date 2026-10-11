@@ -1,0 +1,129 @@
+---
+import BookingButton from '../components/BookingButton.astro';
+import Closing from '../components/Closing.astro';
+import PaperTag from '../components/PaperTag.astro';
+import ScopeList from '../components/ScopeList.astro';
+import SecondaryButton from '../components/SecondaryButton.astro';
+import Section from '../components/Section.astro';
+import TallyForm from '../components/TallyForm.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+
+const checks = [
+  { title: 'Search terms', detail: 'What people typed before they clicked, and which searches don’t fit your business.' },
+  { title: 'Keywords', detail: 'Match types, overlaps and keywords that spend without bringing calls.' },
+  { title: 'Ads and assets', detail: 'Headlines, call and location assets, sitelinks and what shows on a phone.' },
+  { title: 'Conversion tracking', detail: 'Whether calls and forms are counted, and counted once.' },
+  { title: 'Settings', detail: 'Locations, ad schedule, networks and bidding.' },
+  { title: 'Budget and pacing', detail: 'Whether the budget runs out before the day does.' },
+  { title: 'The landing page', detail: 'What someone from your ad sees first, on a phone.' },
+];
+---
+
+<Page
+  title="Free 15-minute Google Ads review"
+  description="A free review of your Google Ads account: 15 minutes on a call, or written findings from read-only access. What gets checked, and how to give and remove access."
+  page="free-review"
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">A free review of your Google Ads</h1>
+      <p class="lead">
+        Fifteen minutes on a call, or written findings from read-only access. Either way, you get a straight answer on
+        what’s working, what isn’t and whether {site.offer.name} fits.
+      </p>
+      <div class="actions intro-actions">
+        <BookingButton content="free-review" />
+        <SecondaryButton />
+      </div>
+    </div>
+  </section>
+
+  <Section id="checked" title="What gets checked">
+    <ScopeList included={checks} split />
+  </Section>
+
+  <Section id="two-ways" title="Two ways to do it">
+    <div class="grid">
+      <div class="span-5 flow way">
+        <h3>A 15-minute call</h3>
+        <p>
+          Pick a time, and we go through your account together while you watch. Best if you want to ask questions as we
+          go.
+        </p>
+        <div class="way-action">
+          <BookingButton content="free-review" />
+        </div>
+      </div>
+      <div class="span-7 flow way" id="written-review">
+        <h3>Written findings</h3>
+        {/* TODO(owner): say how many business days written findings take, once you know. */}
+        <p>
+          Send the form, then give read-only access as shown below. You get written findings by email, and you keep them
+          whether or not you sign up.
+        </p>
+        <TallyForm title="Written review request" formId={site.tally.writtenReviewFormId} height={620} />
+      </div>
+    </div>
+  </Section>
+
+  <Section id="access" title="How to give access, and take it back">
+    {/* TODO(owner): check these menu names against the current Google Ads interface. */}
+    <div class="grid">
+      <div class="span-6 flow">
+        <h3>Read-only access, for a written review</h3>
+        <ol class="how-to">
+          <li>Sign in to Google Ads and open Admin, then Access and security.</li>
+          <li>On the Users tab, press the plus button.</li>
+          <li>
+            Enter <strong>{site.contact.email}</strong>, choose Read only, and send the invitation.
+          </li>
+        </ol>
+        <p class="small muted">To remove it, go back to the Users tab, find that address and remove its access.</p>
+      </div>
+      <div class="span-6 flow">
+        <h3>A manager link, for the monthly service</h3>
+        <ol class="how-to">
+          <li>Send us your customer ID: the 10 digits at the top of any Google Ads page.</li>
+          <li>We send a link request from our manager account.</li>
+          <li>In Google Ads, open Admin, then Access and security, then the Managers tab, and accept it.</li>
+        </ol>
+        <p class="small muted">To remove it, go back to the Managers tab and remove the link. One click, at any time.</p>
+      </div>
+    </div>
+    <div class="never">
+      <PaperTag>
+        <p>
+          You never need to share your password, and nobody needs your payment details. Both kinds of access can be
+          removed by you, at any time, without asking us.
+        </p>
+      </PaperTag>
+    </div>
+  </Section>
+
+  <Closing page="free-review" />
+</Page>
+
+<style>
+  .way {
+    padding-top: var(--space-4);
+    border-top: var(--ink-line) solid var(--ink);
+  }
+
+  .way-action {
+    --flow-space: var(--space-5);
+  }
+
+  .how-to {
+    padding-left: 1.5rem;
+  }
+
+  .how-to li + li {
+    margin-top: var(--space-2);
+  }
+
+  .never {
+    margin-top: var(--space-7);
+    max-width: 46rem;
+  }
+</style>

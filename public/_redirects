@@ -1,0 +1,2 @@
+# The sitemap integration writes sitemap-index.xml; some crawlers ask for /sitemap.xml first.
+/sitemap.xml /sitemap-index.xml 301
