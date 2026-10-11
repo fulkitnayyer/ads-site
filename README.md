@@ -87,16 +87,37 @@ FORBIDDEN_NAMES=First Last,Nickname
 
 ## Deploying to Cloudflare
 
-The site is static files served by Workers static assets (`wrangler.jsonc`); no Worker script runs.
+The site is static files served by Workers static assets (`wrangler.jsonc`); no Worker script
+runs. Cloudflare builds from GitHub and deploys every push to `main`. Other branches get their own
+preview links.
 
-1. `npx wrangler login`, then `npm run deploy`.
-2. In the Cloudflare dashboard, add the apex domain to the Worker as a custom domain (or add a
-   `routes` entry with `custom_domain: true` in `wrangler.jsonc`).
-3. Redirect `www` to the apex with a Cloudflare Redirect Rule (Rules > Redirect Rules >
-   "Redirect from WWW to root"). `_redirects` can't do this because it only sees paths.
-4. Create a Cloudflare Web Analytics site and put its token in `site.analytics.cloudflareToken`.
-5. In Cal.com, set the review event to redirect to `https://<your domain>/thanks/` after booking.
-   In Tally, set both forms to redirect to the same page when they're sent.
+One-time setup, in the Cloudflare dashboard:
+
+1. **Domain.** Register adsmechanic.com under Domain Registration > Register Domains, so it's
+   active in the same account as the site.
+2. **Connect the repository.** Workers & Pages > Create application > next to "Import a
+   repository", Get started. Connect GitHub and choose `fulkitnayyer/ads-site`. Keep the name
+   `ads-site` (it must match `name` in `wrangler.jsonc`), set the build command to
+   `npm run build`, keep the deploy command `npx wrangler deploy`, then Save and Deploy. The
+   first build gives a `.workers.dev` address.
+3. **Custom domain.** On the Worker: Settings > Domains & Routes > Add > Custom Domain, enter
+   `adsmechanic.com`, then Add Custom Domain.
+4. **www.** In the domain's DNS records, add type `A`, name `www`, IPv4 address `192.0.2.0`,
+   proxied. Then add a redirect rule: wildcard request URL `https://www.adsmechanic.com/*`, target
+   URL `https://adsmechanic.com/${1}`, status code 301, preserve query string. `_redirects` can't
+   do this because it only sees paths.
+5. **Analytics.** Add adsmechanic.com under Web Analytics and put its token in
+   `site.analytics.cloudflareToken`.
+6. **Email.** Under the domain's Email Routing, forward hello@adsmechanic.com to your inbox.
+7. **Bookings and forms.** In Cal.com, set the review event to redirect to
+   `https://adsmechanic.com/thanks/` after booking. In Tally, set both forms to redirect there
+   when they're sent.
+
+Once adsmechanic.com works, set `"workers_dev": false` in `wrangler.jsonc` so the site has only
+one address. Deploys then report "No targets deployed", which is expected: the custom domain is
+managed in the dashboard and Wrangler leaves it alone.
+
+To deploy from your own computer instead: `npx wrangler login`, then `npm run deploy`.
 
 ## Font
 

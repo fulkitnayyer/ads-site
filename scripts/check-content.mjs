@@ -44,7 +44,7 @@ const NAME_PLACEHOLDERS = [
   /\blorem ipsum\b/i,
 ];
 
-const PLACEHOLDER_TOKENS = ['TODO(owner)', 'TALLY_FORM_ID', 'working-name.example', 'Working Name'];
+const PLACEHOLDER_TOKENS = ['TODO(owner)', 'TALLY_FORM_ID', 'working-name', 'Working Name'];
 
 function readEnvNames() {
   let raw = process.env.FORBIDDEN_NAMES ?? '';

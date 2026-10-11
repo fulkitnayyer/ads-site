@@ -8,11 +8,10 @@
  */
 
 export const site = {
-  // TODO(owner): the brand name. "Working Name" until it's picked.
-  name: 'Working Name',
+  name: 'Ads Mechanic',
 
-  // TODO(owner): the production domain, apex only (www redirects to it). No trailing slash.
-  url: 'https://working-name.example',
+  // The production domain, apex only (www redirects to it). No trailing slash.
+  url: 'https://adsmechanic.com',
 
   offer: {
     name: 'Ads Upkeep',
@@ -49,8 +48,9 @@ export const site = {
   },
 
   contact: {
-    // TODO(owner): business email address.
-    email: 'hello@working-name.example',
+    // TODO(owner): make this address work, e.g. with Cloudflare Email Routing forwarding it to your
+    // inbox. It must also be a Google account to receive read-only Google Ads invitations.
+    email: 'hello@adsmechanic.com',
     // TODO(owner): business phone, written as it should appear, e.g. '(555) 010-0000'.
     phone: 'TODO(owner): business phone',
     // TODO(owner): postal address shown in the footer: street, city, state ZIP.
