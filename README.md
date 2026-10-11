@@ -4,9 +4,8 @@ A small static site that sells one service, Ads Upkeep (Google Ads management, $
 and hosts personalized prospect pages for cold outreach. The plan and all the rules are in
 [CLAUDE.md](CLAUDE.md).
 
-**Status: review checkpoint.** Built so far: design tokens, layouts, components, Home, Pricing and
-prospect pages. Links to the other pages (How it works, Free review, FAQ, About, Contact, legal)
-return 404 until those pages are built.
+**Status:** every page in the brief is built. The legal pages (privacy, website terms, service
+terms) are plain-English drafts with `TODO(owner)` markers; have them checked before launch.
 
 ## Commands
 
@@ -33,6 +32,7 @@ Node 22.18 or newer.
 | Prospect rows | `src/data/prospects.csv` |
 | Colours, type sizes, spacing | `src/styles/tokens.css` |
 | Security headers, CSP, noindex rules | `public/_headers` |
+| Legal pages | `src/pages/privacy.md`, `terms.md`, `service-terms.md` (business name, contact details and governing state come from `site.ts`; the service terms' price and scope come from `offer.yaml`) |
 
 Renaming the business is one edit: `name` in `src/config/site.ts`.
 
@@ -95,6 +95,8 @@ The site is static files served by Workers static assets (`wrangler.jsonc`); no 
 3. Redirect `www` to the apex with a Cloudflare Redirect Rule (Rules > Redirect Rules >
    "Redirect from WWW to root"). `_redirects` can't do this because it only sees paths.
 4. Create a Cloudflare Web Analytics site and put its token in `site.analytics.cloudflareToken`.
+5. In Cal.com, set the review event to redirect to `https://<your domain>/thanks/` after booking.
+   In Tally, set both forms to redirect to the same page when they're sent.
 
 ## Font
 
@@ -104,6 +106,8 @@ needs a width, weight or character outside those ranges.
 
 ## Before launch
 
-Run `npm run check:launch`. It lists every `TODO(owner)` left in `src/config/site.ts` and
-`src/data/`, including the brand name, domain, booking link, Tally form, address, phone,
-certifications, add-on prices, and the FAQ answers that need your confirmation.
+Run `npm run check:launch`. It lists every `TODO(owner)` left: in `src/config/site.ts` and
+`src/data/`, in the legal Markdown, and in code comments. That covers the brand name, domain,
+booking link, Tally forms, address, phone, hours, certifications, legal entity and governing state,
+add-on prices, the FAQ answers and legal terms that need your confirmation, and the Google Ads menu
+names quoted on How it works, Free review and Thanks.

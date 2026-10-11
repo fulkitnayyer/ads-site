@@ -83,8 +83,8 @@ const steps = [
   page="home"
   structuredData={[organizationSchema(), serviceSchema()]}
 >
-  <section class="section hero" aria-labelledby="hero-title">
-    <div class="hero-text flow">
+  <section class="section page-intro" aria-labelledby="hero-title">
+    <div class="intro-text flow">
       <h1 id="hero-title" class="display">Your Google Ads, kept in working order</h1>
       <p class="lead">
         {site.offer.name} is Google Ads management for small businesses that already advertise: a check every week, an
@@ -93,7 +93,7 @@ const steps = [
       <p class="lead hero-price">
         <strong class="num">{price} a month</strong>, month to month. No setup fee, and the account stays yours.
       </p>
-      <div class="actions hero-actions">
+      <div class="actions intro-actions">
         <BookingButton content="home" />
         <SecondaryButton />
       </div>
@@ -171,26 +171,8 @@ const steps = [
 </Page>
 
 <style>
-  .hero {
-    padding-top: var(--space-7);
-  }
-
-  @media (min-width: 48rem) {
-    .hero {
-      padding-top: var(--space-8);
-    }
-  }
-
-  .hero-text {
-    max-width: 50rem;
-  }
-
   .hero-price {
     --flow-space: var(--space-2);
-  }
-
-  .hero-actions {
-    --flow-space: var(--space-6);
   }
 
   .after-list {

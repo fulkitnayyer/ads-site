@@ -30,8 +30,10 @@ export const site = {
   },
 
   tally: {
-    // TODO(owner): Tally form ID (the part after tally.so/r/) for the contact form.
+    // TODO(owner): Tally form IDs (the part after tally.so/r/). Set each form to redirect to /thanks/.
     contactFormId: 'TALLY_FORM_ID',
+    // Asks for name, email, business, website and Google Ads customer ID.
+    writtenReviewFormId: 'TALLY_FORM_ID',
   },
 
   analytics: {
@@ -55,6 +57,14 @@ export const site = {
     address: 'TODO(owner): business postal address',
     // TODO(owner): confirm hours.
     hours: 'Monday to Friday, 9 a.m. to 5 p.m. US Eastern',
+  },
+
+  /** Shown in the key details at the top of the legal pages, which never name the business themselves. */
+  legal: {
+    // TODO(owner): the legal name of the business: a company or registered trade name, never a personal name.
+    entity: 'TODO(owner): legal business name',
+    // TODO(owner): the US state whose law governs the website and service terms.
+    governingState: 'TODO(owner): state',
   },
 
   /**

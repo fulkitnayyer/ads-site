@@ -97,9 +97,17 @@ const prospectSlugs = new Set(prospects.pages.map((page) => page.slug));
 
 // 2. Source placeholders --------------------------------------------------------------------------
 
-const todoSources = ['src/config/site.ts', ...readdirSync(join(ROOT, 'src/data')).map((f) => `src/data/${f}`)]
-  .filter((file) => statSync(join(ROOT, file)).isFile())
-  .map((file) => [file, (readFileSync(join(ROOT, file), 'utf8').match(/TODO\(owner\)/g) ?? []).length])
+// Every marker in config, data and Markdown counts. In code, only comments do: a string like the
+// Tally placeholder message only renders while an ID is missing, and the output scan catches that.
+const countTodos = (file) => {
+  const text = readFileSync(file, 'utf8');
+  const path = relative(ROOT, file);
+  if (/^src\/(config|data)\//.test(path) || path.endsWith('.md')) return (text.match(/TODO\(owner\)/g) ?? []).length;
+  return text.split('\n').filter((line) => /(\/\/|\/\*|<!--).*TODO\(owner\)/.test(line)).length;
+};
+const todoSources = walk(join(ROOT, 'src'))
+  .filter((file) => /\.(ts|mjs|js|astro|md|ya?ml|csv)$/.test(file))
+  .map((file) => [relative(ROOT, file), countTodos(file)])
   .filter(([, count]) => count > 0);
 if (todoSources.length) {
   placeholder(

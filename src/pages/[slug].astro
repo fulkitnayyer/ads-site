@@ -64,7 +64,7 @@ const rows = prospect.observations.map((observation) => ({
   bookingHref={prospect.ctaLink}
   sample={prospect.sample}
 >
-  <section class="section intro" aria-labelledby="intro-title">
+  <section class="section page-intro" aria-labelledby="intro-title">
     <div class="flow intro-text">
       <p class="small muted">Prepared for {prospect.businessName}</p>
       <h1 id="intro-title">{count} we noticed about {prospect.businessPossessive} Google ad and landing page</h1>
@@ -138,21 +138,6 @@ const rows = prospect.observations.map((observation) => ({
 </Prospect>
 
 <style>
-  .intro {
-    padding-top: var(--space-7);
-  }
-
-  @media (min-width: 48rem) {
-    .intro {
-      padding-top: var(--space-8);
-    }
-  }
-
-  .intro-text {
-    max-width: 50rem;
-  }
-
-  .intro-actions,
   .next-actions {
     --flow-space: var(--space-6);
   }

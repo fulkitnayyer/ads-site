@@ -268,6 +268,25 @@ a:hover {
   margin-top: var(--flow-space, var(--space-4));
 }
 
+/* The opening section of a page: H1, lead and the first buttons */
+.page-intro {
+  padding-top: var(--space-7);
+}
+
+@media (min-width: 48rem) {
+  .page-intro {
+    padding-top: var(--space-8);
+  }
+}
+
+.intro-text {
+  max-width: 50rem;
+}
+
+.intro-actions {
+  --flow-space: var(--space-6);
+}
+
 /* 12 columns with 24px gutters from 768px up; one column on phones */
 .grid {
   display: grid;

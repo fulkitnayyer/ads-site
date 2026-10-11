@@ -1,0 +1,72 @@
+---
+// Where Cal.com and Tally send people after they book or send a form. noindex.
+import Section from '../components/Section.astro';
+import Steps from '../components/Steps.astro';
+import TextLink from '../components/TextLink.astro';
+import Page from '../layouts/Page.astro';
+
+const steps = [
+  {
+    title: 'Check your inbox',
+    text: 'If you booked a call, the invite has the time and the link. If you sent a form, the reply comes within 1 business day. Nothing there? Check spam, or email us.',
+  },
+  {
+    title: 'Find your Google Ads customer ID',
+    text: 'It’s at the top of any Google Ads page, next to your account name: 10 digits, written like 123‑456‑7890. Have it handy for the call.',
+  },
+  {
+    title: 'Give read-only access, if you like',
+    text: 'Then we can look at the account before we talk, and the 15 minutes go further. It’s optional.',
+  },
+];
+---
+
+<Page
+  title="Thanks"
+  description="What happens next after booking a review or sending a form, and how to get your Google Ads account ready."
+  page="thanks"
+  noindex
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">Thanks. Here’s what happens next.</h1>
+      <p class="lead">Three things to have ready. None of them take more than a couple of minutes.</p>
+    </div>
+  </section>
+
+  <Section id="next" title="Before the call">
+    <Steps steps={steps} />
+    <p class="after-steps">
+      <TextLink href="/free-review/#access" standalone>How to give read-only access</TextLink>
+    </p>
+  </Section>
+
+  {/* TODO(owner): check these menu names against the current Google Ads interface. */}
+  <Section
+    id="manager-link"
+    title="If you go ahead: accepting a manager link"
+    intro="We send the request from our manager account. You accept it in your own Google Ads account."
+  >
+    <ol class="how-to">
+      <li>Sign in to Google Ads and open Admin, then Access and security.</li>
+      <li>Open the Managers tab. Our request is waiting there.</li>
+      <li>Accept it. The account stays in your name, with your billing.</li>
+    </ol>
+    <p class="small muted after-steps">To remove the link later, go back to the Managers tab and remove it. One click.</p>
+  </Section>
+</Page>
+
+<style>
+  .after-steps {
+    margin-top: var(--space-5);
+  }
+
+  .how-to {
+    max-width: 46rem;
+    padding-left: 1.5rem;
+  }
+
+  .how-to li + li {
+    margin-top: var(--space-2);
+  }
+</style>

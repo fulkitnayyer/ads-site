@@ -1,0 +1,94 @@
+---
+import BookingButton from '../components/BookingButton.astro';
+import Closing from '../components/Closing.astro';
+import PaperTag from '../components/PaperTag.astro';
+import SampleReport from '../components/SampleReport.astro';
+import SecondaryButton from '../components/SecondaryButton.astro';
+import Section from '../components/Section.astro';
+import Steps from '../components/Steps.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+
+const steps = [
+  {
+    title: 'A 15-minute review',
+    text: `We go through your account on a call, or from read-only access if you’d rather have it in writing. You get a straight answer on whether ${site.offer.name} fits.`,
+  },
+  {
+    title: 'A manager link',
+    text: 'If you go ahead, you accept our manager link in your Google Ads account. No password changes hands, and you can remove the link in one click.',
+  },
+  {
+    title: 'Month 1: the clean-up',
+    text: 'Search terms, negative keywords and ad assets, plus a check that your call and form tracking fires. Every change goes in your log.',
+  },
+  {
+    title: 'Every month after',
+    text: 'A 10-minute check every week, one optimization pass a month and a one-page report in plain English.',
+  },
+];
+---
+
+<Page
+  title="How it works"
+  description={`How ${site.offer.name} starts and runs: a free review, a manager link you can remove in one click, a month-1 clean-up, then a weekly check and a monthly report. Your account stays yours.`}
+  page="how-it-works"
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">How it works</h1>
+      <p class="lead">
+        Four steps, from a 15-minute review to a monthly routine. At every step the account stays in your name, and you
+        can remove our access in one click.
+      </p>
+      <div class="actions intro-actions">
+        <BookingButton content="how-it-works" />
+        <SecondaryButton />
+      </div>
+    </div>
+  </section>
+
+  <Section id="steps" title="Four steps, and the account stays yours throughout">
+    <Steps steps={steps} />
+  </Section>
+
+  <Section id="manager-link" title="A manager link, not a password">
+    <div class="grid">
+      <div class="span-7 flow">
+        <p>
+          We never ask for your password. Instead, we send a link request from our Google Ads manager account, and you
+          accept it in your own account.
+        </p>
+        <p>
+          The link lets us make changes on your behalf. It doesn’t change who owns the account, and it doesn’t change how
+          you pay Google: the account stays in your name, with your billing.
+        </p>
+        <p>
+          Every change we make shows up in the account’s own change history, and in the service log that comes with your
+          monthly report.
+        </p>
+      </div>
+      <div class="span-5">
+        {/* TODO(owner): check these menu names against the current Google Ads interface. */}
+        <PaperTag title="To end it">
+          <p>
+            In Google Ads, open Admin, then Access and security, then the Managers tab, and remove the link. Our access
+            ends straight away.
+          </p>
+          <p>Your campaigns, their history and your data stay exactly where they are.</p>
+        </PaperTag>
+      </div>
+    </div>
+  </Section>
+
+  <Section
+    id="report"
+    title="What the monthly report looks like"
+    intro="One page, sent every month. The figures come straight from your account, so this sample leaves them blank."
+  >
+    <SampleReport />
+  </Section>
+
+  <Closing page="how-it-works" />
+</Page>
+

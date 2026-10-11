@@ -20,7 +20,7 @@ const price = formatMoney(site.offer.price);
   page="pricing"
   structuredData={[serviceSchema()]}
 >
-  <section class="section price-intro" aria-labelledby="pricing-title">
+  <section class="section page-intro" aria-labelledby="pricing-title">
     <div class="grid">
       <div class="span-5 flow">
         <h1 id="pricing-title">What {site.offer.name} costs</h1>
@@ -87,16 +87,6 @@ const price = formatMoney(site.offer.price);
 </Page>
 
 <style>
-  .price-intro {
-    padding-top: var(--space-7);
-  }
-
-  @media (min-width: 48rem) {
-    .price-intro {
-      padding-top: var(--space-8);
-    }
-  }
-
   .terms {
     list-style: none;
     padding: 0;

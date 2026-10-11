@@ -1,0 +1,93 @@
+---
+import BookingButton from '../components/BookingButton.astro';
+import Closing from '../components/Closing.astro';
+import ScopeList from '../components/ScopeList.astro';
+import SecondaryButton from '../components/SecondaryButton.astro';
+import Section from '../components/Section.astro';
+import { site } from '../config/site';
+import Page from '../layouts/Page.astro';
+import { formatMoney } from '../lib/text';
+
+const price = formatMoney(site.offer.price);
+
+// TODO(owner): confirm both lists. Each line is a promise.
+const howWeWork = [
+  { title: 'Everything in writing', detail: 'Every check and change goes in your service log.' },
+  { title: 'Plain English', detail: 'The monthly report fits on one page and skips the jargon.' },
+  { title: 'One fixed price', detail: `${price} a month. The fee doesn’t grow with your ad spend.` },
+  { title: 'Quick replies', detail: 'Email gets an answer within 1 business day.' },
+  { title: 'Your account, your call', detail: 'Bigger changes, like a higher budget, wait for your OK.' },
+];
+
+const refuse = [
+  'Tie you to a contract or charge a setup fee.',
+  'Take a percentage of your ad spend.',
+  'Run your ads from an account we own, so leaving gets hard.',
+  'Promise a number of leads.',
+  'Click your ads to check on them. Every click costs you money.',
+  'Sell or share your data.',
+];
+---
+
+<Page
+  title="About"
+  description={`${site.offer.name} is run by one Google Ads specialist with 3 years of hands-on work for small businesses in the US and Canada. No account managers, no hand-offs.`}
+  page="about"
+>
+  <section class="section page-intro" aria-labelledby="intro-title">
+    <div class="flow intro-text">
+      <h1 id="intro-title">One specialist does the work</h1>
+      <p class="lead">
+        There are no account managers and no hand-offs. The person who checks your account every week is the person who
+        writes your report and answers your email, and the person you talk to on the free review.
+      </p>
+      <div class="actions intro-actions">
+        <BookingButton content="about" />
+        <SecondaryButton />
+      </div>
+    </div>
+  </section>
+
+  <Section id="experience" title="Experience">
+    <ul class="ledger" role="list">
+      {site.experience.map((line) => <li>{line}</li>)}
+      {
+        site.certifications.length > 0 && (
+          <li>
+            Google Skillshop certifications:
+            <ul class="certs">
+              {site.certifications.map((cert) => (
+                <li>{cert}</li>
+              ))}
+            </ul>
+          </li>
+        )
+      }
+    </ul>
+  </Section>
+
+  <Section id="how-we-work" title="How we work, and what we won’t do">
+    <ScopeList included={howWeWork} excluded={refuse} includedTitle="How we work" excludedTitle="What we won’t do" />
+  </Section>
+
+  <Closing page="about" />
+</Page>
+
+<style>
+  .ledger {
+    max-width: 52rem;
+    list-style: none;
+    padding: 0;
+    border-top: var(--ink-line) solid var(--ink);
+  }
+
+  .ledger > li {
+    padding-block: var(--space-4);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .certs {
+    margin-top: var(--space-2);
+    padding-left: 1.25rem;
+  }
+</style>

@@ -1,5 +1,6 @@
-// Structured data. Organization and Service only: never Person, and never a founder.
+// Structured data: Organization, Service and FAQPage. Never Person, and never a founder.
 import { site } from '../config/site';
+import { plainText } from './text';
 
 const isPlaceholder = (value: string) => value.includes('TODO(owner)');
 const orgId = `${site.url}/#organization`;
@@ -42,5 +43,18 @@ export function serviceSchema() {
         referenceQuantity: { '@type': 'QuantitativeValue', value: 1, unitCode: 'MON' },
       },
     },
+  };
+}
+
+/** For /faq/ only: Google asks for one FAQPage per site. */
+export function faqSchema(items: { question: string; answer: string }[]) {
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: items.map(({ question, answer }) => ({
+      '@type': 'Question',
+      name: question,
+      acceptedAnswer: { '@type': 'Answer', text: plainText(answer) },
+    })),
   };
 }
