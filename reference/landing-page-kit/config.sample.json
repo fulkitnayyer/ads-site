@@ -1,0 +1,23 @@
+{
+  "_notes": "Every claim on the page must be true. base_url is where the pages are hosted; booking_link is your Calendly or Cal.com event; credentials is a list of short, verifiable facts. Keys starting with _ are ignored.",
+  "base_url": "https://riveraads.example",
+  "home_url": "",
+  "trailing_slash": true,
+  "your_name": "Alex Rivera",
+  "your_business": "Rivera Ads",
+  "postal_address": "100 Example Street, Suite 200, Anytown, ST 00000",
+  "booking_link": "https://example.com/book/15-minute-review",
+  "cta_label": "Book a 15-minute review",
+  "price": "$179",
+  "offer_name": "Ads Upkeep",
+  "bio": "I've managed Google Ads for small service businesses for eight years, first at an agency and now on my own. I keep my client list small so I do the work on every account myself.",
+  "credentials": [
+    "Google Ads Search certification (Skillshop)",
+    "Eight years managing Search campaigns for local service businesses",
+    "Based in Anytown, working US business hours"
+  ],
+  "photo_url": "",
+  "visit_logger_url": "",
+  "slug_suffix": false,
+  "sample_banner": true
+}

@@ -1,0 +1,175 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>{{business_name}}: notes on your Google ads</title>
+<meta name="description" content="A short, outside-only look at {{business_name}}'s Google ads and landing page, prepared by {{your_name}}.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Public+Sans:wght@400;600;750&display=swap" media="print" onload="this.media='all'">
+<style>{{inline_css}}</style>
+</head>
+<body class="bg-paper text-ink font-sans antialiased">
+<!--if:sample_banner-->
+<div class="bg-marker px-4 py-2 text-center text-sm font-semibold text-ink">Sample page: the business, the sender and the observations are made up.</div>
+<!--endif:sample_banner-->
+
+<header class="mx-auto max-w-page px-4 pt-6 sm:px-6">
+  <div class="flex items-baseline justify-between gap-4 border-b border-rule pb-4 text-sm">
+    <span class="font-semibold">{{your_business}}</span>
+    <span class="text-slate">Prepared for {{business_name}}</span>
+  </div>
+</header>
+
+<main class="mx-auto max-w-page px-4 sm:px-6">
+
+  <section class="pt-10 pb-12" aria-labelledby="intro">
+    <p class="text-lg text-slate">{{greeting}}I'm {{your_first_name}}. On {{checked_on}}, I searched Google for:</p>
+
+    <div class="mt-4 flex items-center gap-3 rounded-full border-2 border-ink bg-white px-5 py-4 shadow-search sm:px-6 sm:py-5" role="img" aria-label="Search: {{search_term}}">
+      <svg class="h-6 w-6 shrink-0 text-slate" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.25" aria-hidden="true"><circle cx="10.5" cy="10.5" r="6.5"/><path d="m15.5 15.5 5 5" stroke-linecap="round"/></svg>
+      <span class="text-xl font-semibold leading-snug sm:text-2xl">{{search_term}}</span>
+    </div>
+    <!--if:search_context-->
+    <p class="mt-2 pl-5 text-sm text-slate">{{search_context}}</p>
+    <!--endif:search_context-->
+
+    <h1 id="intro" class="mt-10 text-[2rem] font-bold leading-[1.15] tracking-tight sm:text-[2.5rem]">{{observation_count_phrase}} I noticed about {{business_possessive}} ad and landing page</h1>
+    <p class="mt-4 text-lg leading-relaxed">Everything below is what any searcher can see. I haven't seen inside your account, so there are no guesses here about your spend or your results.</p>
+
+    <a href="{{cta_link}}" data-track="cta" class="mt-8 inline-flex min-h-[3.25rem] items-center rounded-lg bg-ink px-6 text-base font-semibold text-white hover:bg-ink-hover focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-marker">{{cta_label}}</a>
+  </section>
+
+  <section class="border-t border-rule" aria-label="What I noticed">
+
+    <article class="border-b border-rule py-9">
+      <h2 class="text-xl font-bold leading-snug"><mark class="marker">{{observation_1_title}}</mark></h2>
+      <p class="mt-3 text-lg leading-relaxed">{{observation_1}}</p>
+      <!--if:observation_1_check-->
+      <p class="mt-4 text-base leading-relaxed text-slate"><span class="font-semibold text-ink">What I'd check inside your account:</span> {{observation_1_check}}</p>
+      <!--endif:observation_1_check-->
+      <!--if:observation_1_image-->
+      <figure class="mt-5">
+        <img src="{{observation_1_image}}" alt="{{observation_1_image_alt}}" loading="lazy" decoding="async" class="w-full rounded-md border border-rule bg-white">
+      </figure>
+      <!--endif:observation_1_image-->
+    </article>
+
+    <!--if:observation_2-->
+    <article class="border-b border-rule py-9">
+      <h2 class="text-xl font-bold leading-snug"><mark class="marker">{{observation_2_title}}</mark></h2>
+      <p class="mt-3 text-lg leading-relaxed">{{observation_2}}</p>
+      <!--if:observation_2_check-->
+      <p class="mt-4 text-base leading-relaxed text-slate"><span class="font-semibold text-ink">What I'd check inside your account:</span> {{observation_2_check}}</p>
+      <!--endif:observation_2_check-->
+      <!--if:observation_2_image-->
+      <figure class="mt-5">
+        <img src="{{observation_2_image}}" alt="{{observation_2_image_alt}}" loading="lazy" decoding="async" class="w-full rounded-md border border-rule bg-white">
+      </figure>
+      <!--endif:observation_2_image-->
+    </article>
+    <!--endif:observation_2-->
+
+    <!--if:observation_3-->
+    <article class="border-b border-rule py-9">
+      <h2 class="text-xl font-bold leading-snug"><mark class="marker">{{observation_3_title}}</mark></h2>
+      <p class="mt-3 text-lg leading-relaxed">{{observation_3}}</p>
+      <!--if:observation_3_check-->
+      <p class="mt-4 text-base leading-relaxed text-slate"><span class="font-semibold text-ink">What I'd check inside your account:</span> {{observation_3_check}}</p>
+      <!--endif:observation_3_check-->
+      <!--if:observation_3_image-->
+      <figure class="mt-5">
+        <img src="{{observation_3_image}}" alt="{{observation_3_image_alt}}" loading="lazy" decoding="async" class="w-full rounded-md border border-rule bg-white">
+      </figure>
+      <!--endif:observation_3_image-->
+    </article>
+    <!--endif:observation_3-->
+
+    <aside class="my-10 rounded-lg border border-rule bg-white p-5 sm:p-6">
+      <h2 class="text-base font-bold">What I can't see from here</h2>
+      <p class="mt-2 text-base leading-relaxed text-slate">Your spend, cost per lead, conversions, keywords and settings are only visible inside your account. These notes are a starting point, not an audit. If they're useful, a 15-minute call is how we'd find out whether they matter for your numbers.</p>
+    </aside>
+  </section>
+
+  <section class="border-t border-rule py-12" aria-labelledby="offer">
+    <h2 id="offer" class="text-2xl font-bold tracking-tight">What I'd do, and what it costs</h2>
+    <p class="mt-4 text-lg leading-relaxed">{{offer_name}} is monthly Google Ads management for one account with up to two Search campaigns. I look after it myself; there's no account manager in between.</p>
+
+    <p class="mt-8 flex items-baseline gap-2"><span class="text-[2.75rem] font-bold leading-none tracking-tight">{{price}}</span><span class="text-lg text-slate">a month, month to month</span></p>
+
+    <ul class="mt-8 space-y-3 text-lg leading-relaxed">
+      <li class="tick">A clean-up in the first month: search terms, negative keywords, ad assets, and a check that your call and form tracking actually works</li>
+      <li class="tick">One focused optimization session every month, plus a quick check every week</li>
+      <li class="tick">A one-page report each month, in plain English: what you spent, the leads it brought, what I changed and what's next</li>
+      <li class="tick">Up to two change requests a month, done within two business days</li>
+    </ul>
+    <p class="mt-5 text-base leading-relaxed text-slate">Not included: Performance Max, Shopping, Display or YouTube campaigns, landing page builds, or any promise of a set number of leads. Your ad spend is paid to Google directly.</p>
+
+    <h3 class="mt-10 text-lg font-bold">So it's easy to say yes</h3>
+    <ul class="mt-3 space-y-3 text-lg leading-relaxed">
+      <li class="tick">No contract and no setup fee. Cancel by email whenever you like.</li>
+      <li class="tick">If you don't think the first month was worth it, tell me and I'll refund it.</li>
+      <li class="tick">The account stays yours. I work through a manager link you can remove in one click.</li>
+    </ul>
+  </section>
+
+  <section class="border-t border-rule py-12" aria-labelledby="about">
+    <h2 id="about" class="text-2xl font-bold tracking-tight">Who you'd be working with</h2>
+    <div class="mt-6 flex items-start gap-5">
+      <!--if:photo_url-->
+      <img src="{{photo_url}}" alt="{{your_name}}" width="88" height="88" loading="lazy" class="h-[88px] w-[88px] shrink-0 rounded-full border border-rule object-cover">
+      <!--endif:photo_url-->
+      <div>
+        <p class="text-lg font-semibold">{{your_name}}</p>
+        <p class="mt-2 text-lg leading-relaxed">{{bio}}</p>
+      </div>
+    </div>
+    <!--if:credentials_html-->
+    <ul class="mt-6 space-y-2 text-base leading-relaxed">
+      {{credentials_html}}
+    </ul>
+    <!--endif:credentials_html-->
+  </section>
+
+  <section class="border-t border-rule py-12" aria-labelledby="next">
+    <h2 id="next" class="text-2xl font-bold tracking-tight">The next step</h2>
+    <p class="mt-4 text-lg leading-relaxed">Pick a time and I'll walk you through these notes in 15 minutes. If you'd like, you can give me read-only access first and I'll come with a written list of findings you keep either way.</p>
+    <a href="{{cta_link}}" data-track="cta" class="mt-8 inline-flex min-h-[3.25rem] items-center rounded-lg bg-ink px-6 text-base font-semibold text-white hover:bg-ink-hover focus-visible:outline focus-visible:outline-4 focus-visible:outline-offset-2 focus-visible:outline-marker">{{cta_label}}</a>
+    <p class="mt-4 text-base text-slate">Prefer email? Reply to my message and it comes straight to me.</p>
+  </section>
+</main>
+
+<footer class="mx-auto max-w-page px-4 pb-10 sm:px-6">
+  <div class="border-t border-rule pt-5 text-sm leading-relaxed text-slate">
+    <p>{{your_business}}, {{postal_address}}</p>
+    <p class="mt-2">Independent specialist. Not affiliated with or endorsed by Google. This page notes when it's opened and when the booking button is used, without cookies or personal data.</p>
+  </div>
+</footer>
+
+<!--if:visit_logger_url-->
+<script>
+(function () {
+  var url = "{{visit_logger_url}}", slug = "{{slug}}", sent = {};
+  function send(event) {
+    if (sent[event]) return; sent[event] = true;
+    var body = JSON.stringify({ slug: slug, event: event });
+    try {
+      if (navigator.sendBeacon) { navigator.sendBeacon(url, body); }
+      else { fetch(url, { method: "POST", mode: "no-cors", body: body, keepalive: true }); }
+    } catch (e) {}
+  }
+  // Wait before logging a view: link scanners often load pages for a moment and leave.
+  setTimeout(function () { if (document.visibilityState === "visible") send("view"); }, 4000);
+  ["scroll", "touchstart", "pointerdown", "keydown"].forEach(function (t) {
+    window.addEventListener(t, function () { send("engaged"); }, { once: true, passive: true });
+  });
+  document.querySelectorAll("[data-track='cta']").forEach(function (a) {
+    a.addEventListener("click", function () { send("cta_click"); });
+  });
+})();
+</script>
+<!--endif:visit_logger_url-->
+</body>
+</html>
