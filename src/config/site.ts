@@ -48,23 +48,24 @@ export const site = {
   },
 
   contact: {
-    // TODO(owner): make this address work, e.g. with Cloudflare Email Routing forwarding it to your
-    // inbox. It must also be a Google account to receive read-only Google Ads invitations.
-    email: 'hello@adsmechanic.com',
+    // For now. Read-only Google Ads invitations for written reviews go to this address, so it needs
+    // a Google account too (one can be created on an existing non-Gmail address).
+    email: 'adsmechanic@outlook.com',
     // TODO(owner): business phone, written as it should appear, e.g. '(555) 010-0000'.
     phone: 'TODO(owner): business phone',
     // TODO(owner): postal address shown in the footer: street, city, state ZIP.
     address: 'TODO(owner): business postal address',
-    // TODO(owner): confirm hours.
     hours: 'Monday to Friday, 9 a.m. to 5 p.m. US Eastern',
   },
 
   /** Shown in the key details at the top of the legal pages, which never name the business themselves. */
   legal: {
-    // TODO(owner): the legal name of the business: a company or registered trade name, never a personal name.
-    entity: 'TODO(owner): legal business name',
-    // TODO(owner): the US state whose law governs the website and service terms.
-    governingState: 'TODO(owner): state',
+    // A company or registered trade name, never a personal name. When it matches `name`, the
+    // legal pages show it once.
+    // TODO(owner): Ads Mechanic is a trade name, not yet registered. Update this once the business is registered.
+    entity: 'Ads Mechanic',
+    /** The law that governs the website and service terms. */
+    governingLaw: 'The laws of India',
   },
 
   /**
@@ -81,12 +82,11 @@ export const site = {
     campaignTypes: ['Search', 'Performance Max', 'Demand Gen', 'Display', 'Shopping', 'Video'],
   },
 
-  /** Google Skillshop certifications. Keep only ones that are currently valid. */
-  certifications: [
-    // TODO(owner): replace with currently valid certifications, or empty the list.
-    'TODO(owner): Google Ads Search certification (only if current)',
-    'TODO(owner): Google Ads Measurement certification (only if current)',
-  ],
+  /**
+   * Google Skillshop certifications. Keep only ones that are currently valid.
+   * None are listed yet, so About hides the block until certifications are renewed and added here.
+   */
+  certifications: [] as readonly string[],
 } as const;
 
 export type Site = typeof site;

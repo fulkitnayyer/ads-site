@@ -2,11 +2,11 @@
 layout: ../layouts/Legal.astro
 title: Website terms
 description: The terms for using this website, including the personalized pages we prepare for businesses.
-updated: 2026-10-11
+updated: 2026-10-12
 governingLaw: true
 ---
 
-> TODO(owner): draft for review. Have these terms checked before launch.
+> TODO(owner): draft written without a lawyer. Have it reviewed before taking paying clients.
 
 These terms cover your use of this website. Our Google Ads management service has its own [service terms](/service-terms/).
 
@@ -40,7 +40,7 @@ To the extent the law allows, we aren't liable for any loss that comes from usin
 
 ## Governing law
 
-These terms are governed by the laws of the state named in the key details above.
+These terms are governed by the law named in the key details above.
 
 ## Changes
 

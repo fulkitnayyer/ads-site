@@ -57,10 +57,9 @@ const checks = [
       </div>
       <div class="span-7 flow way" id="written-review">
         <h3>Written findings</h3>
-        {/* TODO(owner): say how many business days written findings take, once you know. */}
         <p>
-          Send the form, then give read-only access as shown below. You get written findings by email, and you keep them
-          whether or not you sign up.
+          Send the form, then give read-only access as shown below. You get written findings by email within 3 business
+          days of getting access, and you keep them whether or not you sign up.
         </p>
         <TallyForm title="Written review request" formId={site.tally.writtenReviewFormId} height={620} />
       </div>
@@ -68,7 +67,7 @@ const checks = [
   </Section>
 
   <Section id="access" title="How to give access, and take it back">
-    {/* TODO(owner): check these menu names against the current Google Ads interface. */}
+    {/* TODO(owner): menu names approved; check them once in a live Google Ads account before launch. */}
     <div class="grid">
       <div class="span-6 flow">
         <h3>Read-only access, for a written review</h3>

@@ -1,6 +1,6 @@
 ---
 // Layout for the Markdown legal pages (privacy, terms, service terms). The Markdown never names
-// the business, its contact details or the governing state: they come from src/config/site.ts
+// the business, its contact details or the governing law: they come from src/config/site.ts
 // and appear in the key details at the top. With `schedule: true` in the frontmatter, the price
 // and scope from site.ts and offer.yaml are added at the end, so the terms can't drift from them.
 import { getEntry } from 'astro:content';
@@ -29,6 +29,7 @@ if (!/^\d{4}-\d{2}-\d{2}$/.test(updatedIso)) throw new Error(`${page}: "updated"
 const updatedDate = new Date(`${updatedIso}T00:00:00Z`);
 const updatedLabel = new Intl.DateTimeFormat('en-US', { dateStyle: 'long', timeZone: 'UTC' }).format(updatedDate);
 const offer = schedule ? (await getEntry('offer', 'offer'))!.data : null;
+const business = (site.legal.entity as string) === site.name ? site.name : `${site.legal.entity}, trading as ${site.name}`;
 ---
 
 <Page title={title} description={description} page={page}>
@@ -43,7 +44,7 @@ const offer = schedule ? (await getEntry('offer', 'offer'))!.data : null;
         <dl class="details">
           <div>
             <dt>Business</dt>
-            <dd>{site.legal.entity}, trading as {site.name} (“we”, “us”)</dd>
+            <dd>{business} (“we”, “us”)</dd>
           </div>
           <div>
             <dt>Email</dt>
@@ -57,7 +58,7 @@ const offer = schedule ? (await getEntry('offer', 'offer'))!.data : null;
             governingLaw && (
               <div>
                 <dt>Governing law</dt>
-                <dd>{site.legal.governingState}</dd>
+                <dd>{site.legal.governingLaw}</dd>
               </div>
             )
           }

@@ -65,7 +65,9 @@ const accounts = formatCount(site.experience.accounts);
           <li class="addon">
             <h3 class="addon-name">{addon.name}</h3>
             <p class="addon-price num">
-              {addon.price === null ? 'TODO(owner): price' : `${formatMoney(addon.price)}, one time`}
+              {addon.price === null
+                ? 'TODO(owner): price'
+                : `${formatMoney(addon.price)}${addon.per ? ` per ${addon.per}` : ', one time'}`}
             </p>
             <p class="addon-detail">{addon.detail}</p>
           </li>

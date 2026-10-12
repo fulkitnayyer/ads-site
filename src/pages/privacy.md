@@ -2,10 +2,10 @@
 layout: ../layouts/Legal.astro
 title: Privacy policy
 description: What this website and the Ads Upkeep service collect, why, who processes it, how long it's kept and how to have it removed.
-updated: 2026-10-11
+updated: 2026-10-12
 ---
 
-> TODO(owner): draft for review. Confirm every provider, period and promise below, and have the policy checked before launch.
+> TODO(owner): draft written without a lawyer. Have it reviewed before taking paying clients.
 
 This policy covers this website, the personalized pages we send to businesses, and the Ads Upkeep service. The business behind them is named in the key details above.
 
@@ -58,15 +58,15 @@ We use these providers, each under its own privacy policy:
 - Tally, for forms
 - Cloudflare, for hosting and visit counts
 - Google, for the open log of personalized pages, and for the Google Ads accounts we manage
-- TODO(owner): your email provider
+- Microsoft (Outlook.com), for email
 
 We don't sell personal information, and we don't share it with anyone else unless the law requires it.
 
 ## How long we keep it
 
-- Form messages, booking details and email: while we're in touch, and up to 2 years after (TODO(owner): confirm).
-- Open logs for personalized pages: up to 12 months (TODO(owner): confirm).
-- Outreach details: until you ask us to stop, or up to 12 months after the last email (TODO(owner): confirm).
+- Form messages, booking details and email: while we're in touch, and up to 2 years after.
+- Open logs for personalized pages: up to 12 months.
+- Outreach details: until you ask us to stop, or up to 12 months after the last email.
 - Client records: as the [service terms](/service-terms/) describe.
 
 ## Your choices

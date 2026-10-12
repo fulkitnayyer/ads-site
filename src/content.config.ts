@@ -63,6 +63,8 @@ const offer = defineCollection({
         detail: z.string().min(1),
         /** Whole US dollars. null until the owner sets it. */
         price: z.number().int().positive().nullable(),
+        /** What one price covers, e.g. "campaign". Omit for a single job. */
+        per: z.string().min(1).optional(),
       }),
     ),
   }),
