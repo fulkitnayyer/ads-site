@@ -2,12 +2,18 @@ import { site } from '../config/site';
 
 const money = (amount: number) => `$${amount.toLocaleString('en-US')}`;
 
-/** Tokens YAML copy can use, so prices and names stay in site.ts. */
+/** 2000 becomes "2,000". */
+export function formatCount(count: number): string {
+  return count.toLocaleString('en-US');
+}
+
+/** Tokens YAML copy can use, so prices, names and the accounts figure stay in site.ts. */
 const TOKENS: Record<string, string> = {
   price: money(site.offer.price),
   plusFrom: money(site.offer.plusFrom),
   offer: site.offer.name,
   plus: site.offer.plusName,
+  accounts: formatCount(site.experience.accounts),
 };
 
 /** Replaces {price}-style tokens. Fails the build on a token that doesn't exist. */

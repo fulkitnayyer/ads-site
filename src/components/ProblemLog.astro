@@ -1,0 +1,131 @@
+---
+// "Problems fixed again and again" on About: the service-log look, without dates. Three ruled
+// columns on wide screens; on phones each problem stacks as one block. Rows come from
+// src/data/problems.yaml. They describe common patterns and the kind of fix, never client
+// results. A quote is typical owner wording, not a testimonial, so it stays a plain text label:
+// no name, no stars, no review styling.
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  items: CollectionEntry<'problems'>[];
+}
+
+const { items } = Astro.props;
+const columns = ['The problem', 'What’s usually behind it', 'What the fix looks like'];
+const hasQuotes = items.some(({ data }) => data.quote);
+---
+
+<div class="problems">
+  <div class="problem-columns" aria-hidden="true">
+    {columns.map((column) => <span>{column}</span>)}
+  </div>
+  <ol class="problem-rows" role="list">
+    {
+      items.map(({ data }) => (
+        <li class="problem">
+          <div class="problem-cell">
+            <h3 class="problem-title">{data.title}</h3>
+            {data.quote && <p class="problem-quote">“{data.quote}”</p>}
+          </div>
+          <div class="problem-cell">
+            <p class="problem-label">{columns[1]}</p>
+            <p>{data.cause}</p>
+          </div>
+          <div class="problem-cell">
+            <p class="problem-label">{columns[2]}</p>
+            <p>{data.fix}</p>
+          </div>
+        </li>
+      ))
+    }
+  </ol>
+  {hasQuotes && <p class="problems-note">Quoted lines are how owners commonly put it. They aren’t client quotes.</p>}
+</div>
+
+<style>
+  .problems {
+    background: var(--white);
+    border-top: var(--ink-line) solid var(--ink);
+    border-radius: var(--radius-log);
+    padding: var(--space-2) var(--space-4) var(--space-4);
+  }
+
+  .problem-columns {
+    display: none;
+  }
+
+  .problem-rows {
+    list-style: none;
+    padding: 0;
+  }
+
+  .problem {
+    display: grid;
+    gap: var(--space-3);
+    padding-block: var(--space-5);
+  }
+
+  .problem + .problem {
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .problem-title {
+    font-size: var(--body-size);
+    line-height: var(--body-leading);
+    font-weight: 700;
+  }
+
+  .problem-quote,
+  .problem-label,
+  .problems-note {
+    color: var(--moss);
+  }
+
+  .problem-label,
+  .problems-note {
+    font-size: var(--small-size);
+    line-height: var(--small-leading);
+  }
+
+  .problems-note {
+    max-width: none;
+    padding-top: var(--space-4);
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  /* Three columns only where each has room for its text; stacked blocks below that. */
+  @media (min-width: 64rem) {
+    .problems {
+      padding: var(--space-5) var(--space-6) var(--space-5);
+    }
+
+    .problem-columns,
+    .problem {
+      display: grid;
+      grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 4fr);
+      column-gap: var(--gutter);
+    }
+
+    .problem-columns {
+      padding-bottom: var(--space-2);
+      color: var(--moss);
+      font-size: var(--small-size);
+      line-height: var(--small-leading);
+    }
+
+    .problem {
+      border-top: var(--hairline) solid var(--rule);
+    }
+
+    /* The column header row names the columns on wide screens; keep the labels for screen readers. */
+    .problem-label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      margin: -1px;
+      overflow: hidden;
+      clip-path: inset(50%);
+      white-space: nowrap;
+    }
+  }
+</style>

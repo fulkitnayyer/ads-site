@@ -78,6 +78,24 @@ const faq = defineCollection({
   schema: z.object({ question: z.string().min(1), answer: z.string().min(1), order: z.number().int() }),
 });
 
+/** "Problems fixed again and again" on About. Patterns and the kind of fix, never client results. */
+const problems = defineCollection({
+  loader: strictLoader('problems-yaml', 'src/data/problems.yaml', async () => {
+    const items = await yamlFile('src/data/problems.yaml')();
+    if (!Array.isArray(items)) throw new Error('src/data/problems.yaml must be a list of problems');
+    // Keep the file's order: it's the research ranking.
+    return items.map(({ id, ...data }, order) => ({ id: String(id), data: { ...data, order } }));
+  }),
+  schema: z.object({
+    title: z.string().min(1),
+    /** Typical owner wording, shown as a one-line label. Never a testimonial. */
+    quote: z.string().min(1).optional(),
+    cause: z.string().min(1),
+    fix: z.string().min(1),
+    order: z.number().int(),
+  }),
+});
+
 /**
  * One page per publishable row of src/data/prospects.csv, at /<slug>/.
  * Skipped rows (fit=N, dnc, unsubscribed, expired) get no page. A reserved or duplicate slug,
@@ -93,4 +111,4 @@ const prospects = defineCollection({
   schema: prospectRowSchema,
 });
 
-export const collections = { offer, faq, prospects };
+export const collections = { offer, faq, problems, prospects };

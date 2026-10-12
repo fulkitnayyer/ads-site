@@ -3,8 +3,8 @@
 //
 // Fails on: personal-name placeholders or forbidden names in the output, a Person in structured
 // data, prospect rows with a reserved/duplicate slug or a missing required field, prospect pages
-// without noindex or listed in the sitemap, site pages left noindexed by public/_headers, and
-// booking links without utm_content.
+// without noindex or listed in the sitemap, site pages left noindexed by public/_headers,
+// booking links without utm_content, and the accounts figure written as "managed" or "clients".
 // Warns on: wording in prospect observations ("audit", "wasting", "losing", "guarantee",
 // percentages), pages marked expired too soon, and TODO(owner) placeholders.
 //
@@ -45,6 +45,13 @@ const NAME_PLACEHOLDERS = [
 ];
 
 const PLACEHOLDER_TOKENS = ['TODO(owner)', 'TALLY_FORM_ID', 'working-name', 'Working Name'];
+
+// The accounts figure is work done hands-on in accounts, not clients managed (CLAUDE.md).
+const ACCOUNTS = site.experience.accounts.toLocaleString('en-US');
+const ACCOUNTS_MISWORDED = new RegExp(
+  `\\bmanaged\\b[^.]{0,80}\\b${ACCOUNTS}|\\b${ACCOUNTS}\\+?[^.]{0,40}\\b(clients|managed)\\b|\\bthousands of (accounts|clients|businesses|campaigns)\\b`,
+  'i',
+);
 
 function readEnvNames() {
   let raw = process.env.FORBIDDEN_NAMES ?? '';
@@ -169,6 +176,8 @@ if (!existsSync(DIST)) {
     const noindex = /<meta name="robots" content="noindex/.test(html);
     const h1s = (html.match(/<h1[\s>]/g) ?? []).length;
     if (h1s !== 1) fail(`${where}: has ${h1s} <h1> elements; every page needs exactly one`);
+    const misworded = textOf(html).replace(/\s+/g, ' ').match(ACCOUNTS_MISWORDED);
+    if (misworded) fail(`${where}: "${misworded[0]}": say "worked hands-on in" the accounts, never "managed"`);
 
     const bookingLinks = [...html.matchAll(/<a\b[^>]*data-track="cta"[^>]*>/g)].map((m) => m[0]);
     for (const link of bookingLinks) {

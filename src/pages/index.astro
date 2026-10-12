@@ -2,6 +2,7 @@
 import { getCollection, getEntry } from 'astro:content';
 import BookingButton from '../components/BookingButton.astro';
 import Closing from '../components/Closing.astro';
+import ExperienceFacts from '../components/ExperienceFacts.astro';
 import Faq from '../components/Faq.astro';
 import PaperTag from '../components/PaperTag.astro';
 import ScopeList from '../components/ScopeList.astro';
@@ -13,10 +14,11 @@ import TextLink from '../components/TextLink.astro';
 import { site } from '../config/site';
 import Page from '../layouts/Page.astro';
 import { organizationSchema, serviceSchema } from '../lib/schema';
-import { formatMoney } from '../lib/text';
+import { formatCount, formatMoney } from '../lib/text';
 
 const offer = (await getEntry('offer', 'offer'))!.data;
 const price = formatMoney(site.offer.price);
+const accounts = formatCount(site.experience.accounts);
 
 // Three answers people need before booking. The full list is on /faq/.
 const faqIds = ['contract', 'ad-spend', 'ownership'];
@@ -112,6 +114,17 @@ const steps = [
       note="Example entries. In your log, every row is a real check or change in your account."
       rows={exampleMonth}
     />
+  </Section>
+
+  <Section
+    id="experience"
+    title={`Done by someone who’s seen ${accounts}+ accounts`}
+    intro={`One specialist does every check on your account. Over three years they’ve worked hands-on in more than ${accounts} small-business Google Ads accounts across the US and Canada, so the common problems get spotted fast.`}
+  >
+    <ExperienceFacts />
+    <p class="after-list">
+      <TextLink href="/about/" standalone>How we work</TextLink>
+    </p>
   </Section>
 
   <Section id="fit" title="Who it’s for">

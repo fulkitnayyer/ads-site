@@ -68,14 +68,18 @@ export const site = {
   },
 
   /**
-   * Experience claims the owner has confirmed. Pages quote these as written; don't add to them.
+   * Experience claims the owner has confirmed (the list is in CLAUDE.md); don't add to them.
    * They describe "one specialist" and never a name, an employer or a client.
    */
-  experience: [
-    '3 years of hands-on Google Ads work for small businesses in the US and Canada: setup, keyword research, ad copy, bidding and budgets, plus advice.',
-    'Has worked with 150 to 200 new businesses every quarter, across almost every kind of small business: schools, driving and chef schools, wellness and mental-health course creators, cobblers, airport taxi services, e-commerce and more.',
-    'Campaign types: Search, Performance Max, Demand Gen, Display, Shopping and Video. Conversion tracking with Google Tag Manager and GA4.',
-  ],
+  experience: {
+    /**
+     * Small-business Google Ads accounts worked in hands-on: 150 to 200 new businesses a quarter
+     * for 3 years, so 1,800 to 2,400. Pages show it as "2,000+" and "more than 2,000".
+     * Say "worked hands-on in", never "managed": most of it was setup and optimization work.
+     */
+    accounts: 2000,
+    campaignTypes: ['Search', 'Performance Max', 'Demand Gen', 'Display', 'Shopping', 'Video'],
+  },
 
   /** Google Skillshop certifications. Keep only ones that are currently valid. */
   certifications: [

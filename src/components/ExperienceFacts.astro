@@ -1,0 +1,90 @@
+---
+// Three facts about the specialist's experience, used on Home and About. Service-log look: white
+// surface, 1.5px ink top rule, rules between the facts. Figures in the Price style; no icons, no
+// cards, no counting up. Every figure is an owner-confirmed claim (CLAUDE.md) read from site.ts.
+import { site } from '../config/site';
+import { formatCount } from '../lib/text';
+
+const { accounts, campaignTypes } = site.experience;
+
+const facts: { figure: string; unit?: string; label: string }[] = [
+  { figure: `${formatCount(accounts)}+`, label: 'small-business ad accounts worked on, hands-on' },
+  { figure: '3', unit: 'years', label: 'of full-time Google Ads work' },
+  { figure: String(campaignTypes.length), label: `campaign types: ${campaignTypes.join(', ')}` },
+];
+---
+
+<ul class="facts" role="list">
+  {
+    facts.map(({ figure, unit, label }) => (
+      <li class="fact">
+        <p class="fact-figure">
+          <span class="fact-num num">{figure}</span>
+          {unit && <span class="fact-unit">{unit}</span>}
+        </p>
+        <p class="fact-label">{label}</p>
+      </li>
+    ))
+  }
+</ul>
+
+<style>
+  .facts {
+    list-style: none;
+    padding: 0 var(--space-4);
+    background: var(--white);
+    border-top: var(--ink-line) solid var(--ink);
+    border-radius: var(--radius-log);
+  }
+
+  .fact {
+    padding-block: var(--space-5);
+  }
+
+  .fact + .fact {
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .fact-figure {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: baseline;
+    gap: 0 var(--space-3);
+  }
+
+  .fact-num {
+    font-size: var(--price-size);
+    line-height: var(--price-leading);
+    font-weight: 800;
+    font-stretch: var(--wide-display);
+    letter-spacing: -0.01em;
+  }
+
+  .fact-unit {
+    font-size: var(--lead-size);
+    line-height: var(--lead-leading);
+    color: var(--moss);
+  }
+
+  .fact-label {
+    margin-top: var(--space-2);
+  }
+
+  /* Three across only where the widest figure fits its column; stacked below that. */
+  @media (min-width: 64rem) {
+    .facts {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      padding: 0;
+    }
+
+    .fact {
+      padding: var(--space-6);
+    }
+
+    .fact + .fact {
+      border-top: 0;
+      border-left: var(--hairline) solid var(--rule);
+    }
+  }
+</style>

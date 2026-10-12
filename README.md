@@ -26,9 +26,10 @@ Node 22.18 or newer.
 
 | What | Where |
 | --- | --- |
-| Brand name, prices, booking link, Tally ID, analytics token, address, certifications | `src/config/site.ts` (the only place) |
+| Brand name, prices, booking link, Tally ID, analytics token, address, certifications, the accounts figure (2,000+) | `src/config/site.ts` (the only place) |
 | What's included, not included, promises, fit, add-ons | `src/data/offer.yaml` |
 | Questions and answers | `src/data/faq.yaml` |
+| "Problems fixed again and again" on About | `src/data/problems.yaml` |
 | Prospect rows | `src/data/prospects.csv` |
 | Colours, type sizes, spacing | `src/styles/tokens.css` |
 | Security headers, CSP, noindex rules | `public/_headers` |
@@ -75,6 +76,7 @@ app URL in `site.visitLogger.url`. The page footer then says that opens are note
 - prospect pages without `noindex`, or listed in the sitemap
 - a site page that `public/_headers` would mark noindex (add a `! X-Robots-Tag` block for new pages)
 - booking links without `utm_content`, duplicate titles or descriptions, pages without one `<h1>`
+- the accounts figure written as "managed" or "clients", or "thousands of accounts"
 
 It warns on "audit", "wasting", "losing", "guarantee" and percentages in observations, and on
 `TODO(owner)` placeholders.

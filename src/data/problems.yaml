@@ -1,0 +1,64 @@
+# The Google Ads problems small-business owners raise most often, for "Problems fixed again and
+# again" on About. Ranked from the owner's research (Cost-Per-Clue-Stage2-Problem-Discovery.xlsx,
+# "Ranked Problems": #1+#4, #2, #3, #7, #10), keeping only problems the account work can fix.
+#
+# These are common patterns and the kind of fix, never client results: no numbers, percentages,
+# before/after figures or client names. A quote is typical owner wording from public forums, not
+# a testimonial: never attribute it or put a name or stars next to it.
+# Prospect pages can borrow this wording when an observation matches a row.
+# About introduces them as "the five" problems: change that line if you add or remove one.
+
+- id: no-leads
+  title: Clicks, but no calls or leads
+  quote: Is Google Ads just a waste of money?
+  cause: >-
+    Ads showing for searches that will never buy, ads sending people to the homepage, no call
+    option on the ad, a mobile page where the call button is hard to find, or tracking that hides
+    the leads that do arrive.
+  fix: >-
+    Check tracking first, so you know what’s really happening. Then cut the searches that don’t
+    buy, send each ad to the most relevant page, add call assets for business hours, and list the
+    landing-page fixes that matter most on a phone.
+
+- id: spam-leads
+  title: Spam and fake leads
+  quote: I only get leads that are spam.
+  cause: >-
+    Performance Max and the Search Partner network sending bot traffic, lead form assets that fill
+    themselves, and bidding that treats every form fill as a win, so Google goes looking for more
+    junk.
+  fix: >-
+    Move budget toward Search on Google, review Search Partners and placements, add simple spam
+    filters to forms, and count only real enquiries as conversions so bidding stops chasing junk.
+
+- id: zero-conversions
+  title: Sales happen, but Google Ads shows zero conversions
+  cause: >-
+    The conversion tag was never installed, fires on the wrong page, is stuck on “Awaiting
+    conversions”, or calls aren’t tracked at all, so automated bidding is flying blind.
+  fix: >-
+    Set up and test conversion tracking with Google Tag Manager and GA4, track calls from ads and
+    the website, and confirm each conversion action is recording before trusting any bid strategy.
+
+- id: irrelevant-clicks
+  title: Budget eaten by irrelevant or invalid clicks
+  quote: Irrelevant clicks wasting my money.
+  cause: >-
+    Broad keywords matching jobs, DIY, free and out-of-area searches; no negative keyword lists;
+    locations set to “interest in” rather than “presence in”; suspicious click patterns nobody is
+    watching.
+  fix: >-
+    Go through the search terms report every month, build negative keyword lists, tighten
+    location settings, and check invalid-click credits and patterns.
+
+# Must match the service terms: the client owns the account; access is a removable manager link.
+- id: locked-out
+  title: Locked out of your own account
+  quote: Lost admin rights to my own Ads account.
+  cause: >-
+    An agency or former freelancer created the account under their own login, kept admin access,
+    or never gave the owner access at all.
+  fix: >-
+    Every client keeps ownership. Access is only through a manager link the owner can remove in
+    one click, and in the free review we explain how to regain admin access if someone else holds
+    it.
