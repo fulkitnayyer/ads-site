@@ -2,12 +2,12 @@
 layout: ../layouts/Legal.astro
 title: Service terms
 description: "The terms for Ads Upkeep: scope, billing, cancelling, the first-month refund, who owns your Google Ads account and how your data is handled."
-updated: 2026-10-11
+updated: 2026-10-12
 governingLaw: true
 schedule: true
 ---
 
-> TODO(owner): draft for review. Confirm billing, the refund window, notice periods and the liability limit, and have the terms checked before launch.
+> TODO(owner): draft written without a lawyer. Have it reviewed before taking paying clients.
 
 These terms apply when you sign up for Ads Upkeep. "You" means the business that signs up. "We" means the business named in the key details above. The price and scope are in the schedule at the end, which is part of these terms.
 
@@ -17,7 +17,7 @@ We manage one Google Ads account for you, doing the work and keeping to the limi
 
 ## 2. Getting started
 
-After the free review, you accept our manager link in your Google Ads account. Your first month starts on the day you accept it (TODO(owner): confirm), and it begins with the clean-up described in the schedule.
+After the free review, you accept our manager link in your Google Ads account. Your first month starts on the day you accept it, and it begins with the clean-up described in the schedule.
 
 ## 3. Your account stays yours
 
@@ -29,16 +29,17 @@ After the free review, you accept our manager link in your Google Ads account. Y
 ## 4. Fees and billing
 
 - The monthly fee is in the schedule. It pays for our work only. Your ad spend is separate.
-- We bill the fee monthly, in advance. TODO(owner): say how invoices are sent and paid.
-- We'll give you at least 30 days' notice by email before a price change applies to you (TODO(owner): confirm).
+- We bill the fee monthly, in advance. Each invoice comes by email through PayPal, and you can pay it by card or from a PayPal balance.
+- If an invoice is still unpaid 7 days after its due date, we pause the work until it's paid.
+- We'll give you at least 30 days' notice by email before a price change applies to you.
 
 ## 5. Cancelling
 
-Email us to cancel, at any time and for any reason. There's no fee to leave. You won't be billed again, and the work continues to the end of the month you've paid for (TODO(owner): confirm). Remove our manager link whenever you're ready.
+Email us to cancel, at any time and for any reason. There's no fee to leave. You won't be billed again, and the work continues to the end of the month you've paid for. Remove our manager link whenever you're ready.
 
 ## 6. First-month refund
 
-If you don't think your first month was worth it, email us before your second month is billed and we'll refund the first month's fee in full (TODO(owner): confirm the window). The refund covers our fee, not what you spent with Google.
+If you don't think your first month was worth it, email us before your second month is billed and we'll refund the first month's fee in full, through PayPal. The refund covers our fee, not what you spent with Google.
 
 ## 7. Your part
 
@@ -57,12 +58,12 @@ We can't promise a number of leads or calls, a cost per lead, a position on the 
 - We keep your account data and reports confidential, and we don't sell or share them.
 - We don't copy data out of your account beyond what the monthly reports need.
 - Your reports and service log are yours to keep.
-- After you leave, we delete our copies of your reports and notes within 90 days (TODO(owner): confirm), unless the law requires us to keep them longer.
+- After you leave, we delete our copies of your reports and notes within 90 days, unless the law requires us to keep them longer.
 - The [privacy policy](/privacy/) covers the rest.
 
 ## 10. Liability
 
-We take care with your account, but we can't control Google's systems, policies or decisions. To the extent the law allows, our total liability under these terms is limited to the fees you paid us in the 3 months before the claim (TODO(owner): confirm), and we aren't liable for lost profits or indirect losses.
+We take care with your account, but we can't control Google's systems, policies or decisions. To the extent the law allows, our total liability under these terms is limited to the fees you paid us in the 3 months before the claim, and we aren't liable for lost profits or indirect losses.
 
 ## 11. Independence
 
@@ -70,8 +71,8 @@ We're an independent business, not affiliated with or endorsed by Google.
 
 ## 12. Changes to these terms
 
-If we change these terms, we'll email you at least 30 days before the change applies to you (TODO(owner): confirm). You can cancel before then if you don't agree.
+If we change these terms, we'll email you at least 30 days before the change applies to you. You can cancel before then if you don't agree.
 
 ## 13. Governing law
 
-These terms are governed by the laws of the state named in the key details above.
+These terms are governed by the law named in the key details above.

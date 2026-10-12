@@ -4,7 +4,6 @@
 
 - id: contract
   question: Is there a contract?
-  # TODO(owner): confirm when cancellation takes effect.
   answer: >-
     No. {offer} is month to month, with no setup fee and no minimum term. To cancel, send an
     email. You won’t be billed again, and the work runs to the end of the month you’ve paid for.
@@ -41,10 +40,9 @@
 
 - id: refund
   question: How does the first-month refund work?
-  # TODO(owner): confirm the refund window and how the refund is paid.
   answer: >-
     Email us before your second month is billed and say the first month wasn’t worth it. We refund
-    the first month’s fee. No forms, and no need to explain why.
+    the first month’s fee in full, through PayPal. No forms, and no need to explain why.
 
 - id: cancel
   question: How do I cancel?
@@ -62,10 +60,10 @@
 
 - id: where
   question: Where are you based?
-  # TODO(owner): answer plainly. Say where the work is done from and the hours kept for US clients.
-  # Don't imply an office that doesn't exist.
+  # Owner-approved wording. Don't imply an office that doesn't exist.
   answer: >-
-    TODO(owner): where the work is done from, and the hours kept for US clients.
+    We’re based in India and work with US businesses on US hours. You deal with the same specialist
+    every time, by email or on a scheduled call.
 
 - id: agency
   question: I already have an agency. Can I switch?
@@ -80,11 +78,11 @@
 
 - id: tracking
   question: What if my call and form tracking isn’t working?
-  # TODO(owner): confirm whether fixing basic tracking is part of month 1 or the paid add-on.
   answer: >-
-    Month 1 includes a check that your call and form tracking fires. If it doesn’t, we show you
-    what’s missing and fix the basics in the account. A full setup with Google Tag Manager and GA4
-    is a one-time add-on, and call-tracking platforms aren’t included.
+    Month 1 includes a check that your call and form tracking fires. If a tag on an existing
+    conversion action is broken or missing, we fix it at no extra cost. Building tracking from
+    scratch with Google Tag Manager and GA4 is a one-time add-on, priced on the
+    [pricing page](/pricing/#add-ons). Call-tracking platforms aren’t included.
 
 - id: access
   question: What access do you need?
@@ -107,8 +105,8 @@
 
 - id: data
   question: What do you do with my data?
-  # TODO(owner): confirm against the privacy policy once it's written.
   answer: >-
     We use access to your account only to manage your ads. We don’t sell or share your data, and
     we don’t copy it out of your account beyond what the monthly report needs. When you remove the
-    manager link, our access ends. The [privacy policy](/privacy/) has the details.
+    manager link, our access ends. After you leave, we delete our copies of your reports and notes
+    within 90 days. The [privacy policy](/privacy/) has the details.

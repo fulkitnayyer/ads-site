@@ -4,7 +4,7 @@
 
 included:
   - title: A month-1 clean-up
-    detail: Search terms, negative keywords and ad assets, plus a check that your call and form tracking fires.
+    detail: Search terms, negative keywords and ad assets, plus a check that your call and form tracking fires. Small breaks get fixed at no extra cost.
   - title: One optimization pass a month
     detail: About 90 minutes of focused work on search terms, keywords, ads, bids and budget.
   - title: A 10-minute check every week
@@ -62,20 +62,21 @@ limits:
   - Up to $3,000 a month in ad spend
   - One location
 
-# TODO(owner): confirm what Upkeep Plus covers and how it's priced.
 plus: >-
-  For accounts past these limits, such as more campaigns or higher spend.
-  {plus} starts at {plusFrom} a month, and you get a fixed monthly price after the free review.
+  For accounts past these limits: up to 5 campaigns and up to $10,000 a month in ad spend, with
+  Performance Max allowed. You get an optimization pass every 2 weeks and a 20-minute call each
+  month. {plus} starts at {plusFrom} a month, and you get a fixed monthly price after the free review.
 
-# TODO(owner): draft list. Confirm which one-time add-ons you offer and set each price in whole
-# US dollars. A missing price shows as a TODO on the page and fails `npm run check:launch`.
+# One-time jobs. Prices in whole US dollars; `per` says what one price covers, if not the whole job.
+# A missing price (null) shows as a TODO on the page and fails `npm run check:launch`.
 addons:
   - name: Conversion tracking setup
-    detail: Calls and form fills tracked with Google Tag Manager and GA4, then tested end to end.
-    price: null
+    detail: Call and form tracking built from scratch with Google Tag Manager and GA4, then tested end to end.
+    price: 300
   - name: New Search campaign build
     detail: Keyword research, ad groups, ads and settings for one new Search campaign.
-    price: null
+    price: 200
+    per: campaign
   - name: Landing-page notes
-    detail: "Written notes on one landing page: what someone from your ad sees first, and what to change."
-    price: null
+    detail: "A written fix list for one landing page: what someone from your ad sees first, and what to change. We don’t build the page."
+    price: 150

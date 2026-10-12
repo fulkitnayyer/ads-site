@@ -32,7 +32,7 @@ Node 22.18 or newer.
 | Prospect rows | `src/data/prospects.csv` |
 | Colours, type sizes, spacing | `src/styles/tokens.css` |
 | Security headers, CSP, noindex rules | `public/_headers` |
-| Legal pages | `src/pages/privacy.md`, `terms.md`, `service-terms.md` (business name, contact details and governing state come from `site.ts`; the service terms' price and scope come from `offer.yaml`) |
+| Legal pages | `src/pages/privacy.md`, `terms.md`, `service-terms.md` (business name, contact details and governing law come from `site.ts`; the service terms' price and scope come from `offer.yaml`) |
 
 Renaming the business is one edit: `name` in `src/config/site.ts`.
 
@@ -108,7 +108,9 @@ One-time setup, in the Cloudflare dashboard:
    do this because it only sees paths.
 5. **Analytics.** Add adsmechanic.com under Web Analytics and put its token in
    `site.analytics.cloudflareToken`.
-6. **Email.** Under the domain's Email Routing, forward hello@adsmechanic.com to your inbox.
+6. **Email.** The site uses adsmechanic@outlook.com for now. Read-only Google Ads invitations
+   go to it, so it needs a Google account too. To move to an address on the domain later, forward
+   it to your inbox under the domain's Email Routing and change `site.contact.email`.
 7. **Bookings and forms.** In Cal.com, set the review event to redirect to
    `https://adsmechanic.com/thanks/` after booking. In Tally, set both forms to redirect there
    when they're sent.
@@ -128,7 +130,9 @@ needs a width, weight or character outside those ranges.
 ## Before launch
 
 Run `npm run check:launch`. It lists every `TODO(owner)` left: in `src/config/site.ts` and
-`src/data/`, in the legal Markdown, and in code comments. That covers the brand name, domain,
-booking link, Tally forms, address, phone, hours, certifications, legal entity and governing state,
-add-on prices, the FAQ answers and legal terms that need your confirmation, and the Google Ads menu
-names quoted on How it works, Free review and Thanks.
+`src/data/`, in the legal Markdown, and in code comments. What's still open: the booking link,
+both Tally forms, phone, postal address (required in every marketing email under CAN-SPAM), the
+analytics token and visit-logger URL, the legal entity once the business is registered, the
+outreach deletion window in the privacy policy, a lawyer's review of the three legal pages, and a
+check in a live Google Ads account of the menu names quoted on How it works, Free review and Thanks.
+Certifications stay hidden on About until you add currently valid ones to `site.certifications`.
