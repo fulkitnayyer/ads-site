@@ -17,6 +17,11 @@ import { organizationSchema, serviceSchema } from '../lib/schema';
 import { formatCount, formatMoney } from '../lib/text';
 
 const offer = (await getEntry('offer', 'offer'))!.data;
+// The headline items only, with their one-line versions. Pricing lists the full scope.
+const headlineIncluded = offer.included.flatMap(({ title, short }) => (short ? [{ title, detail: short }] : []));
+
+// Same list and order as "Problems fixed again and again" on About, where each one is explained.
+const problems = (await getCollection('problems')).sort((a, b) => a.data.order - b.data.order);
 const price = formatMoney(site.offer.price);
 const accounts = formatCount(site.experience.accounts);
 
@@ -28,12 +33,6 @@ const faq = (await getCollection('faq', ({ id }) => faqIds.includes(id))).sort(
 
 // An example month. No numbers that could read as a client's results.
 const exampleMonth = [
-  {
-    date: '2026-03-02',
-    checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
-    changed: 'Nothing needed changing.',
-    stamp: true,
-  },
   {
     date: '2026-03-09',
     checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
@@ -49,11 +48,6 @@ const exampleMonth = [
     date: '2026-03-16',
     checked: { title: 'Weekly check', text: 'Pacing, disapprovals, tracking.' },
     changed: 'Form tracking stopped after a website update. Reconnected the tag and tested a form.',
-  },
-  {
-    date: '2026-03-18',
-    checked: { title: 'Change request', text: 'Add Saturday hours to the ads.' },
-    changed: 'Updated the ad schedule and the hours on the call button. Done the next business day.',
   },
   {
     date: '2026-03-31',
@@ -104,16 +98,24 @@ const steps = [
   </section>
 
   <Section
-    id="example-month"
-    title="What a month of upkeep looks like"
-    intro="Every check and every change is written down in a log like this one, and you see it in your monthly report."
+    id="problems"
+    title="Problems we fix"
+    intro="The five Google Ads problems small-business owners raise most often. Each has been diagnosed and fixed in account after account."
   >
-    <ServiceLog
-      title="Service log, March"
-      example
-      note="Example entries. In your log, every row is a real check or change in your account."
-      rows={exampleMonth}
-    />
+    <ol class="problem-list" role="list">
+      {
+        problems.map(({ data }) => (
+          <li class="problem-row">
+            <strong>{data.title}</strong>
+            <span class="problem-quote">{data.quote && `“${data.quote}”`}</span>
+          </li>
+        ))
+      }
+    </ol>
+    <p class="small muted problem-note">Quoted lines are how owners commonly put it. They aren’t client quotes.</p>
+    <p class="after-list">
+      <TextLink href="/about/#problems" standalone>See how each one gets fixed</TextLink>
+    </p>
   </Section>
 
   <Section
@@ -127,22 +129,42 @@ const steps = [
     </p>
   </Section>
 
-  <Section id="fit" title="Who it’s for">
-    <ScopeList
-      included={offer.fit.good}
-      excluded={offer.fit.poor}
-      includedTitle="A good fit if"
-      excludedTitle="Probably not a fit if"
+  <Section
+    id="example-month"
+    title="What a month of upkeep looks like"
+    intro="Every check and every change is written down in a log like this one, and you see it in your monthly report."
+  >
+    <ServiceLog
+      title="Service log, March"
+      example
+      note="Example entries. In your log, every row is a real check or change in your account."
+      rows={exampleMonth}
     />
   </Section>
 
   <Section
     id="included"
-    title="What’s included"
-    intro={`All of this is in the ${price} a month. Your ad spend is separate and goes straight to Google.`}
+    title="What you get, and who it fits"
+    intro={`Included in the ${price} a month. Your ad spend is separate and goes straight to Google.`}
   >
-    <ScopeList included={offer.included} split />
-    <p class="after-list">
+    <div class="grid">
+      <div class="span-6">
+        <h3 class="column-title">What’s included</h3>
+        <ScopeList included={headlineIncluded} />
+      </div>
+      <div class="span-6 fit">
+        <div>
+          <h3 class="column-title">A good fit if</h3>
+          <ScopeList included={offer.fit.good} />
+        </div>
+        <div>
+          <h3 class="column-title">Probably not a fit if</h3>
+          <ScopeList excluded={offer.fit.poor} />
+        </div>
+      </div>
+    </div>
+    <p class="after-list more-links">
+      <TextLink href="/pricing/" standalone>See everything that’s included</TextLink>
       <TextLink href="/pricing/#not-included" standalone>See what’s not included</TextLink>
     </p>
   </Section>
@@ -192,8 +214,57 @@ const steps = [
     margin-top: var(--space-3);
   }
 
+  .column-title,
   .promise-title {
     margin-bottom: var(--space-3);
+  }
+
+  .fit {
+    display: grid;
+    gap: var(--space-7);
+  }
+
+  .more-links {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0 var(--space-6);
+    max-width: none;
+  }
+
+  /* A ruled list: name on the left, how owners put it on the right; stacked on phones. */
+  .problem-list {
+    list-style: none;
+    padding: 0;
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .problem-row {
+    display: grid;
+    gap: var(--space-1) var(--gutter);
+    padding-block: var(--space-3);
+    border-bottom: var(--hairline) solid var(--rule);
+  }
+
+  .problem-quote {
+    color: var(--moss);
+  }
+
+  .problem-quote:empty {
+    display: none;
+  }
+
+  .problem-note {
+    margin-top: var(--space-3);
+  }
+
+  @media (min-width: 48rem) {
+    .problem-row {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .problem-quote:empty {
+      display: block;
+    }
   }
 
   .cant-list {

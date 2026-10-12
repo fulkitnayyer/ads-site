@@ -1,16 +1,21 @@
 # The offer, in one place. Home, Pricing and prospect pages all read this file,
 # so change the offer here rather than in page copy.
 # Prices live in src/config/site.ts. Write them here as tokens: {price}, {plusFrom}, {offer}, {plus}.
+# An included item with `short` is a headline item: Home lists only those, with the short line.
 
 included:
   - title: A month-1 clean-up
     detail: Search terms, negative keywords and ad assets, plus a check that your call and form tracking fires. Small breaks get fixed at no extra cost.
+    short: Search terms, negative keywords, ads and tracking.
   - title: One optimization pass a month
     detail: About 90 minutes of focused work on search terms, keywords, ads, bids and budget.
+    short: About 90 minutes on search terms, keywords, ads and bids.
   - title: A 10-minute check every week
     detail: Spend pacing, disapproved ads and tracking.
+    short: Spend pacing, disapproved ads and tracking.
   - title: A one-page report every month
     detail: In plain English. What was spent, what it brought in, what changed and what’s next.
+    short: What was spent, what it brought in and what changed, in plain English.
   - title: Up to 2 change requests a month
     detail: Done within 2 business days.
   - title: Email support

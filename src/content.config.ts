@@ -50,7 +50,7 @@ const offer = defineCollection({
     { id: 'offer', data: await yamlFile('src/data/offer.yaml')() },
   ]),
   schema: z.object({
-    included: z.array(item).min(1),
+    included: z.array(item.extend({ short: z.string().min(1).optional() })).min(1),
     not_included: z.array(z.string().min(1)).min(1),
     promises: z.array(item).length(3),
     cant_promise: z.array(z.string().min(1)).min(1),
