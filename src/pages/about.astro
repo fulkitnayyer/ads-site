@@ -1,14 +1,33 @@
 ---
+import { getCollection } from 'astro:content';
 import BookingButton from '../components/BookingButton.astro';
 import Closing from '../components/Closing.astro';
+import ExperienceFacts from '../components/ExperienceFacts.astro';
+import ProblemLog from '../components/ProblemLog.astro';
 import ScopeList from '../components/ScopeList.astro';
 import SecondaryButton from '../components/SecondaryButton.astro';
 import Section from '../components/Section.astro';
 import { site } from '../config/site';
 import Page from '../layouts/Page.astro';
-import { formatMoney } from '../lib/text';
+import { formatCount, formatMoney } from '../lib/text';
 
 const price = formatMoney(site.offer.price);
+const accounts = formatCount(site.experience.accounts);
+
+// In the research file's order. The section intro says "five"; change it if the list changes.
+const problems = (await getCollection('problems')).sort((a, b) => a.data.order - b.data.order);
+
+const handsOnWork = [
+  'Account setup and campaign structure',
+  'Keyword research and negative keywords',
+  'Ad copy, headlines and assets',
+  'Bidding strategy and budgets',
+  'Conversion tracking with Google Tag Manager and GA4',
+  'Plain-English advice to owners about what to change and why',
+];
+
+// The block appears once the owner lists at least one current certification in site.ts.
+const certifications = site.certifications.filter((cert) => !cert.includes('TODO(owner)'));
 
 // TODO(owner): confirm both lists. Each line is a promise.
 const howWeWork = [
@@ -31,7 +50,7 @@ const refuse = [
 
 <Page
   title="About"
-  description={`${site.offer.name} is run by one Google Ads specialist with 3 years of hands-on work for small businesses in the US and Canada. No account managers, no hand-offs.`}
+  description={`One Google Ads specialist with hands-on work in ${accounts}+ small-business accounts across the US and Canada. ${price} a month, month to month.`}
   page="about"
 >
   <section class="section page-intro" aria-labelledby="intro-title">
@@ -48,23 +67,56 @@ const refuse = [
     </div>
   </section>
 
-  <Section id="experience" title="Experience">
-    <ul class="ledger" role="list">
-      {site.experience.map((line) => <li>{line}</li>)}
-      {
-        site.certifications.length > 0 && (
-          <li>
-            Google Skillshop certifications:
-            <ul class="certs">
-              {site.certifications.map((cert) => (
-                <li>{cert}</li>
-              ))}
-            </ul>
-          </li>
-        )
-      }
-    </ul>
+  <Section
+    id="experience"
+    title="Three years inside small-business ad accounts"
+    intro={`The specialist behind ${site.name} has worked hands-on in more than ${accounts} Google Ads accounts for small businesses across the US and Canada. That’s 150 to 200 new businesses every quarter, for three years straight.`}
+  >
+    <p slot="intro">
+      That volume is the point. The problems that hurt small-business accounts most have been seen, and fixed, many
+      times before. Your review starts from that experience, not from a checklist.
+    </p>
   </Section>
+
+  <Section
+    id="problems"
+    title="Problems fixed again and again"
+    intro="These are the five Google Ads problems small-business owners raise most often. Each one has been diagnosed and fixed in account after account."
+  >
+    <ProblemLog items={problems} />
+  </Section>
+
+  <section class="section" aria-labelledby="facts-title">
+    <h2 id="facts-title" class="sr-only">The experience at a glance</h2>
+    <ExperienceFacts />
+    <div class="detail">
+      <h3>Every kind of small business</h3>
+      <p>
+        Schools, driving and chef schools, wellness and mental-health course creators, cobblers, airport taxi services,
+        trades, local services and e-commerce stores. If it’s a small business that advertises on Google, it has
+        probably come across the desk already.
+      </p>
+    </div>
+    <div class="detail">
+      <h3>What the hands-on work covers</h3>
+      <ul class="ruled-list" role="list">
+        {handsOnWork.map((line) => <li>{line}</li>)}
+      </ul>
+    </div>
+    {
+      certifications.length > 0 && (
+        <div class="detail">
+          <h3>Certifications</h3>
+          <p class="certs-intro">Current Google Skillshop certifications:</p>
+          <ul class="ruled-list" role="list">
+            {certifications.map((cert) => (
+              <li>{cert}</li>
+            ))}
+          </ul>
+        </div>
+      )
+    }
+  </section>
 
   <Section id="how-we-work" title="How we work, and what we won’t do">
     <ScopeList included={howWeWork} excluded={refuse} includedTitle="How we work" excludedTitle="What we won’t do" />
@@ -74,20 +126,33 @@ const refuse = [
 </Page>
 
 <style>
-  .ledger {
+  .detail {
+    margin-top: var(--space-7);
     max-width: 52rem;
-    list-style: none;
-    padding: 0;
-    border-top: var(--ink-line) solid var(--ink);
   }
 
-  .ledger > li {
-    padding-block: var(--space-4);
+  .detail h3,
+  .certs-intro {
+    margin-bottom: var(--space-3);
+  }
+
+  /* A ruled list, in two columns on wide screens: rows of the log, not cards. */
+  .ruled-list {
+    display: grid;
+    column-gap: var(--gutter);
+    list-style: none;
+    padding: 0;
+    border-top: var(--hairline) solid var(--rule);
+  }
+
+  .ruled-list > li {
+    padding-block: var(--space-3);
     border-bottom: var(--hairline) solid var(--rule);
   }
 
-  .certs {
-    margin-top: var(--space-2);
-    padding-left: 1.25rem;
+  @media (min-width: 48rem) {
+    .ruled-list {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
   }
 </style>

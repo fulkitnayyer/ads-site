@@ -101,17 +101,29 @@ Components:
 
 Imagery and motion: no stock photos, no photos of people, no Google logos. Icons: Lucide outline, 1.5px, ink, only where meaningful. No load animations; only state changes animate; respect `prefers-reduced-motion`.
 
-Not allowed: cream/terracotta palettes, ALL-CAPS eyebrow labels, monospace data labels, arrows on buttons, grids of identical shadowed cards, gradient washes, fake counters ("500+ clients"), stock handshake photos, "10x" language.
+Not allowed: cream/terracotta palettes, ALL-CAPS eyebrow labels, monospace data labels, arrows on buttons, grids of identical shadowed cards, gradient washes, fake counters (any number that is not in the allowed claims above), stock handshake photos, "10x" language.
 
 ## Copy and honesty rules (hard rules)
 
 Voice: plain US English, sentence case, short sentences, numbers over adjectives. Second person about their account. "We" is fine but never imply a team, office or capacity that doesn't exist.
 
-Allowed experience claims (owner-confirmed), written as "one specialist":
-- 3 years of hands-on Google Ads work for small businesses in the US and Canada (setup, keyword research, ad copy, bidding and budgets, plus advice).
-- Worked with 150–200 new businesses every quarter, across almost every kind of small business (schools, driving and chef schools, wellness and mental-health course creators, cobblers, airport taxi services, e-commerce and more).
-- Campaign types: Search, Performance Max, Demand Gen, Display, Shopping, Video. Conversion tracking with Google Tag Manager and GA4.
-- Google Skillshop certifications — placeholder list in `site.ts`; owner fills in only currently valid ones.
+Allowed experience claims (owner-confirmed), written as "one specialist" or "the specialist behind Ads Mechanic":
+- Hands-on work in 2,000+ small-business Google Ads accounts across the US and Canada
+  (150–200 new businesses every quarter for 3 years; 12 quarters x 150–200 = 1,800–2,400).
+- 3 years of full-time, hands-on Google Ads work: account setup and structure, keyword research,
+  negative keywords, ad copy and assets, bidding and budgets, conversion tracking, and advice to owners.
+- Breadth: almost every kind of small business, including schools, driving and chef schools,
+  wellness and mental-health course creators, cobblers, airport taxi services, trades,
+  local services and e-commerce.
+- Campaign types: Search, Performance Max, Demand Gen, Display, Shopping, Video.
+  Conversion tracking with Google Tag Manager and GA4.
+- Google Skillshop certifications: list only ones that are currently valid (owner fills in).
+
+Wording rules for the numbers:
+- Say "worked hands-on in" or "worked inside" 2,000+ accounts. Never "managed 2,000+ clients": most were set-up and optimization work, not ongoing monthly management.
+- Never multiply or round up further (no "thousands", "3,000+", "10,000 campaigns").
+- Never add results, spend totals, ROAS or lead numbers.
+- The figure lives in `site.experience.accounts` in `src/config/site.ts`; pages read it from there.
 
 Never write: employer names; "ex-Google", "inside Google", "Google Partner"; sales-target percentages; client names, logos, results or testimonials; guarantees of leads or results; invented numbers of any kind; any personal name.
 

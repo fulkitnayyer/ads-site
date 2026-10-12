@@ -263,6 +263,11 @@ a:hover {
   max-width: 46rem;
 }
 
+/* A section that is only a heading and text needs no gap before the next ruled line. */
+.section-head:last-child {
+  margin-bottom: 0;
+}
+
 /* Vertical rhythm inside a block of text */
 .flow > * + * {
   margin-top: var(--flow-space, var(--space-4));

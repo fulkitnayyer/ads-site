@@ -1,6 +1,7 @@
 # Questions and answers for the FAQ page, three of which also appear on Home.
 # Answers are plain text. A blank line starts a new paragraph, and [link text](/path/) makes a link.
-# Prices are tokens from src/config/site.ts: {price}, {plusFrom}, {offer}, {plus}.
+# Prices and figures are tokens from src/config/site.ts: {price}, {plusFrom}, {offer}, {plus},
+# {accounts} (the accounts figure, "2,000").
 
 - id: contract
   question: Is there a contract?
@@ -54,11 +55,11 @@
     in its history.
 
 - id: who
-  question: Who does the work?
+  question: Who will actually work on my account?
   answer: >-
-    One specialist, with 3 years of hands-on Google Ads work for small businesses in the US and
-    Canada. There are no account managers and no hand-offs. The person who checks your account
-    is the person who answers your email.
+    One specialist, every time. They’ve worked hands-on in more than {accounts} small-business
+    Google Ads accounts in the US and Canada over three years. There are no account managers or
+    hand-offs.
 
 - id: where
   question: Where are you based?

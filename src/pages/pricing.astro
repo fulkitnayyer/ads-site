@@ -8,10 +8,11 @@ import Section from '../components/Section.astro';
 import { site } from '../config/site';
 import Page from '../layouts/Page.astro';
 import { serviceSchema } from '../lib/schema';
-import { formatMoney } from '../lib/text';
+import { formatCount, formatMoney } from '../lib/text';
 
 const offer = (await getEntry('offer', 'offer'))!.data;
 const price = formatMoney(site.offer.price);
+const accounts = formatCount(site.experience.accounts);
 ---
 
 <Page
@@ -33,6 +34,9 @@ const price = formatMoney(site.offer.price);
             <li>Your ad spend is separate. You pay Google directly.</li>
           </ul>
         </PriceBlock>
+        <p class="small specialist">
+          Every account is handled by one specialist with {accounts}+ small-business accounts behind them.
+        </p>
       </div>
     </div>
   </section>
@@ -87,6 +91,10 @@ const price = formatMoney(site.offer.price);
 </Page>
 
 <style>
+  .specialist {
+    margin-top: var(--space-3);
+  }
+
   .terms {
     list-style: none;
     padding: 0;

@@ -12,7 +12,7 @@ import ServiceLog from '../components/ServiceLog.astro';
 import TextLink from '../components/TextLink.astro';
 import { site } from '../config/site';
 import Prospect from '../layouts/Prospect.astro';
-import { formatMoney } from '../lib/text';
+import { formatCount, formatMoney } from '../lib/text';
 
 export async function getStaticPaths() {
   const prospects = await getCollection('prospects');
@@ -22,6 +22,7 @@ export async function getStaticPaths() {
 const { prospect } = Astro.props;
 const offer = (await getEntry('offer', 'offer'))!.data;
 const price = formatMoney(site.offer.price);
+const accounts = formatCount(site.experience.accounts);
 
 const screenshots = import.meta.glob<ImageMetadata>('../data/prospect-images/*.{png,jpg,jpeg,webp}', {
   eager: true,
@@ -95,6 +96,9 @@ const rows = prospect.observations.map((observation) => ({
         </p>
       </PaperTag>
     </div>
+    <p class="notes-source">
+      These notes come from a specialist who has worked hands-on in {accounts}+ small-business Google Ads accounts.
+    </p>
   </section>
 
   <section class="section" aria-labelledby="offer-title">
@@ -145,6 +149,10 @@ const rows = prospect.observations.map((observation) => ({
   .cant-see {
     margin-top: var(--space-6);
     max-width: 46rem;
+  }
+
+  .notes-source {
+    margin-top: var(--space-6);
   }
 
   .offer-text {

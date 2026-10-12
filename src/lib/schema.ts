@@ -1,6 +1,6 @@
 // Structured data: Organization, Service and FAQPage. Never Person, and never a founder.
 import { site } from '../config/site';
-import { plainText } from './text';
+import { formatCount, plainText } from './text';
 
 const isPlaceholder = (value: string) => value.includes('TODO(owner)');
 const orgId = `${site.url}/#organization`;
@@ -11,6 +11,10 @@ export function organizationSchema() {
   return {
     '@context': 'https://schema.org',
     ...provider,
+    description:
+      `${site.offer.name}: Google Ads management for small US businesses, done by one specialist who has ` +
+      `worked hands-on in more than ${formatCount(site.experience.accounts)} small-business Google Ads ` +
+      'accounts across the US and Canada over three years.',
     email: site.contact.email,
     ...(isPlaceholder(site.contact.phone) ? {} : { telephone: site.contact.phone }),
     ...(isPlaceholder(site.contact.address) ? {} : { address: site.contact.address }),
