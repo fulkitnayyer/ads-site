@@ -29,10 +29,10 @@ export const site = {
   },
 
   tally: {
-    // TODO(owner): Tally form IDs (the part after tally.so/r/). Set each form to redirect to /thanks/.
-    contactFormId: 'TALLY_FORM_ID',
+    // Tally form IDs (the part after tally.so/r/). Each form redirects to /thanks/.
+    contactFormId: 'yXZM1d',
     // Asks for name, email, business, website and Google Ads customer ID.
-    writtenReviewFormId: 'TALLY_FORM_ID',
+    writtenReviewFormId: 'EqzKal',
   },
 
   analytics: {
