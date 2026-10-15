@@ -24,8 +24,8 @@ export const site = {
   },
 
   booking: {
-    // TODO(owner): the Cal.com event link for the 15-minute review.
-    url: 'https://cal.com/working-name/15-minute-review',
+    // The Cal.com event link for the 15-minute review.
+    url: 'https://cal.com/adsmechanic/15min',
   },
 
   tally: {
