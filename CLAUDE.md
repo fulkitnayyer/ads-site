@@ -41,7 +41,7 @@ It also hosts personalized prospect pages used in cold outreach.
 | Prospect pages | `/<business-slug>/` | Personal pitch | Observations, offer, booking button. `noindex`, not in nav or sitemap |
 
 - Header (every page): wordmark, nav (How it works, Pricing, Free review, FAQ), booking button. Phones: one menu button.
-- Footer: About, Contact, Privacy, Terms, Service terms, postal address, "Independent. Not affiliated with or endorsed by Google."
+- Footer: About, Contact, Privacy, Terms, Service terms, "Independent. Not affiliated with or endorsed by Google." No postal address in the footer (owner decision); it stays on Contact and the legal pages.
 - Every selling page ends with the same button: **Book a 15-minute review**. Secondary action only: **Get a written review**.
 
 ### The offer (single source: `src/data/offer.yaml`)
