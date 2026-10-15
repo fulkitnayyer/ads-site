@@ -53,7 +53,7 @@ export const site = {
     email: 'adsmechanic@outlook.com',
     // TODO(owner): business phone, written as it should appear, e.g. '(555) 010-0000'.
     phone: 'TODO(owner): business phone',
-    // TODO(owner): postal address shown in the footer: street, city, state ZIP.
+    // TODO(owner): postal address (street, city, state ZIP), shown on Contact and the legal pages, not the footer.
     address: 'TODO(owner): business postal address',
     hours: 'Monday to Friday, 9 a.m. to 5 p.m. US Eastern',
   },

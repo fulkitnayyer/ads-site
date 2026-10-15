@@ -22,13 +22,13 @@ const year = new Date().getFullYear();
 <footer class="site-footer">
   <div class="wrap">
     <div class="grid footer-grid">
-      <div class="span-5 flow">
+      <div class="span-6 flow">
         <p class="footer-name">{site.name}</p>
         <p class="small">
           {site.offer.name}: Google Ads management for small US businesses, {formatMoney(site.offer.price)} a month.
         </p>
       </div>
-      <nav class="span-3" aria-label="Footer">
+      <nav class="span-6" aria-label="Footer">
         <ul class="footer-links" role="list">
           {
             links.map(({ href, label }) => (
@@ -39,10 +39,6 @@ const year = new Date().getFullYear();
           }
         </ul>
       </nav>
-      <div class="span-4 flow">
-        <p class="small muted">Postal address</p>
-        <address class="small">{site.contact.address}</address>
-      </div>
     </div>
     <div class="footer-base small">
       <p>Independent. Not affiliated with or endorsed by Google.</p>
