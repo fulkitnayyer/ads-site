@@ -17,7 +17,7 @@ export function organizationSchema() {
       'accounts across the US and Canada over three years.',
     email: site.contact.email,
     ...(isPlaceholder(site.contact.phone) ? {} : { telephone: site.contact.phone }),
-    ...(isPlaceholder(site.contact.address) ? {} : { address: site.contact.address }),
+    ...(site.contact.postalAddress ? { address: site.contact.postalAddress } : {}),
     areaServed: { '@type': 'Country', name: 'United States' },
   };
 }

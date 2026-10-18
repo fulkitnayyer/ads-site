@@ -5,14 +5,14 @@ import { site } from '../config/site';
 import Page from '../layouts/Page.astro';
 import { organizationSchema } from '../lib/schema';
 
-const { email, phone, address, hours } = site.contact;
+const { email, phone, postalAddress, hours } = site.contact;
 // A placeholder phone number isn't a number anyone can call yet.
 const phoneHref = /^[+\d\s().-]+$/.test(phone) ? `tel:${phone.replace(/[^\d+]/g, '')}` : '';
 ---
 
 <Page
   title="Contact"
-  description={`Email, phone, postal address and hours for ${site.name}. Email gets a reply within 1 business day.`}
+  description={`Email, phone${postalAddress ? ', postal address' : ''} and hours for ${site.name}. Email gets a reply within 1 business day.`}
   page="contact"
   structuredData={[organizationSchema()]}
 >
@@ -35,10 +35,16 @@ const phoneHref = /^[+\d\s().-]+$/.test(phone) ? `tel:${phone.replace(/[^\d+]/g,
           <dt>Phone</dt>
           <dd>{phoneHref ? <a href={phoneHref}>{phone}</a> : phone}</dd>
         </div>
-        <div>
-          <dt>Postal address</dt>
-          <dd><address>{address}</address></dd>
-        </div>
+        {
+          postalAddress && (
+            <div>
+              <dt>Postal address</dt>
+              <dd>
+                <address>{postalAddress}</address>
+              </dd>
+            </div>
+          )
+        }
         <div>
           <dt>Hours</dt>
           <dd>{hours}</dd>
