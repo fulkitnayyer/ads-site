@@ -133,7 +133,9 @@ needs a width, weight or character outside those ranges.
 
 Run `npm run check:launch`. It lists every `TODO(owner)` left: in `src/config/site.ts` and
 `src/data/`, in the legal Markdown, and in code comments. What's still open:
-both Tally forms, phone, postal address (required in every marketing email under CAN-SPAM), the
+phone, postal address (`site.contact.postalAddress`, empty and hidden on every page until the
+virtual mailbox is active; CAN-SPAM requires it in every marketing email, so no cold email goes out
+before then), the
 analytics token and visit-logger URL, the legal entity once the business is registered, the
 outreach deletion window in the privacy policy, a lawyer's review of the three legal pages, and a
 check in a live Google Ads account of the menu names quoted on How it works, Free review and Thanks.

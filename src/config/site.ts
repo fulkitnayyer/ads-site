@@ -53,8 +53,10 @@ export const site = {
     email: 'adsmechanic@outlook.com',
     // TODO(owner): business phone, written as it should appear, e.g. '(555) 010-0000'.
     phone: 'TODO(owner): business phone',
-    // TODO(owner): postal address (street, city, state ZIP), shown on Contact and the legal pages, not the footer.
-    address: 'TODO(owner): business postal address',
+    // TODO(owner): add US postal address when virtual mailbox is active
+    // Format: 'Ads Mechanic, 123 Main St #456, City, ST 00000'. While it's empty, no page shows a postal
+    // address. Once set, it shows on Contact, in the legal pages' key details and in structured data.
+    postalAddress: '' as string,
     hours: 'Monday to Friday, 9 a.m. to 5 p.m. US Eastern',
   },
 

@@ -83,4 +83,4 @@ If we change this policy, we'll update this page and the date at the top. If a c
 
 ## Contact
 
-Email us, or write to the postal address in the key details above.
+Email us. The email is in the key details above, and we reply within 1 business day.

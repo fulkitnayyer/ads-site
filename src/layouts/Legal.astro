@@ -50,10 +50,14 @@ const business = (site.legal.entity as string) === site.name ? site.name : `${si
             <dt>Email</dt>
             <dd><a href={`mailto:${site.contact.email}`}>{site.contact.email}</a></dd>
           </div>
-          <div>
-            <dt>Postal address</dt>
-            <dd>{site.contact.address}</dd>
-          </div>
+          {
+            site.contact.postalAddress && (
+              <div>
+                <dt>Postal address</dt>
+                <dd>{site.contact.postalAddress}</dd>
+              </div>
+            )
+          }
           {
             governingLaw && (
               <div>
